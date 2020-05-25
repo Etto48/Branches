@@ -44,6 +44,10 @@ namespace algebra_tools_
     bool isFunction(const std::string &expr);
 
     bool hasOperator(const std::string &expr);
+
+    bool goodBraces(const std::string &content);
+
+    algebraNode *newAdequateNode(std::string content);
 }
 
 class algebraNode

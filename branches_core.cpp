@@ -15,33 +15,43 @@ namespace algebra_tools_
 //functions
 void algebra_tools_::removeWrappingBraces(string &expr)
 {
-    if (expr.length() == 1)return;
-    if (expr[0] == '(' && expr[expr.length() - 1] == ')')
+    goodBraces(expr);
+    while (expr[0] == '(' && expr[expr.length() - 1] == ')')
     {
+        if (expr.length() == 1)return;
+        if (expr[0] == '(' && expr[expr.length() - 1] == ')')
+        {
 //cout<<"Removing braces from "<<expr<<" at indexes "<<0<<" and "<<expr.length()-1<<endl;
-        if (expr.length() == 2)throw except("Empty Braces");
-        unsigned depth = 0, conj = 0, i = 0;
-        for (auto &c : expr)///find conj of first brace
-        {
-            if (c == '(')
+            if (expr.length() == 2)throw except("Empty Braces");
+            unsigned depth = 0, conj = 0, i = 0;
+            for (auto &c : expr)///find conj of first brace
             {
-                depth += 1;
-            } else if (c == ')')
-            {
-                depth -= 1;
-                if (depth == 0)
+                if (c == '(')
                 {
-                    conj = i;
-                    break;
+                    depth += 1;
+                } else if (c == ')')
+                {
+                    depth -= 1;
+                    if (depth == 0)
+                    {
+                        conj = i;
+                        break;
+                    }
                 }
+                i += 1;
             }
-            i += 1;
-        }
 
-        if (conj == expr.length() - 1)
+            if (conj == expr.length() - 1)
+            {
+                expr.erase(0, 1);
+                expr.erase(expr.length() - 1, 1);
+            } else
+            {
+                return;
+            }
+        } else
         {
-            expr.erase(0, 1);
-            expr.erase(expr.length() - 1, 1);
+            return;
         }
     }
 }
@@ -109,6 +119,47 @@ bool algebra_tools_::hasOperator(const string &expr)
     return hasIt;
 }
 
+bool algebra_tools_::goodBraces(const std::string &content)
+{
+    unsigned openBr = 0, closedBr = 0, depth = 0;
+    for (auto &c : content)//find depth
+    {
+        if (c == '(')
+        {
+            openBr += 1;
+            depth += 1;
+        } else if (c == ')')
+        {
+            closedBr += 1;
+            depth -= 1;
+        }
+        if (depth < 0)
+            throw algebra_tools_::except("Unbalanced Braces");
+
+    }
+    if (openBr != closedBr)
+        throw algebra_tools_::except("Unbalanced Braces");
+    return true;
+}
+
+algebraNode *algebra_tools_::newAdequateNode(std::string content)
+{
+    //check for balanced braces
+    algebra_tools_::goodBraces(content);
+    algebra_tools_::removeWrappingBraces(content);
+    bool contentIsFunction = algebra_tools_::isFunction(content);
+    bool contentHasOperator = algebra_tools_::hasOperator(content);
+
+
+    if (contentIsFunction)
+        return new funcNode(content);
+    else if (!contentHasOperator)
+        return new varNode(content);
+    else
+        return new exprNode(content);
+
+}
+
 ///algebraNode
 algebraNode::algebraNode()
 {
@@ -150,20 +201,8 @@ funcNode::funcNode(string content)
         }
     }
     content = content.substr(func.length());
-
-    algebra_tools_::removeWrappingBraces(content);
     //cout<<"Inner: "<<content<<endl;
-    bool contentIsFunction = algebra_tools_::isFunction(content);
-    bool contentHasOperator = algebra_tools_::hasOperator(content);
-
-    //cout<<"CisF: "<<contentIsFunction<<" ChsO: "<<contentHasOperator<<endl;
-
-    if (contentIsFunction)
-        left = new funcNode(content);
-    else if (!contentHasOperator)
-        left = new varNode(content);
-    else
-        left = new exprNode(content);
+    left = algebra_tools_::newAdequateNode(content);
 
 }
 
@@ -184,7 +223,7 @@ double funcNode::compile(map<string, double> &symMap)
     if (func == "neg")
         return -(left->compile(symMap));
     else
-        throw algebra_tools_::except("Function " + func + " is not valid");
+        throw algebra_tools_::except("funcNode: Invalid Function Name");
 }
 
 ///exprNode
@@ -192,21 +231,8 @@ exprNode::exprNode(string expr)
 {
     //cout<<"Found expr:"<<expr<<endl;
     algebra_tools_::removeWrappingBraces(expr);
-    unsigned openBr = 0, closedBr = 0, depth = 0, maxDepth = 0;
-    for (auto &c : expr)///find depth
-    {
-        if (c == '(')
-        {
-            openBr += 1;
-            depth += 1;
-        } else if (c == ')')
-        {
-            closedBr += 1;
-            depth -= 1;
-        }
-        if (depth > maxDepth)maxDepth = depth;
-    }
-    if (openBr != closedBr)throw algebra_tools_::except("Unbalanced Braces");
+
+    int depth = 0;
     unsigned fmeo = -1;
     unsigned i;
     bool found = false;
@@ -231,8 +257,7 @@ exprNode::exprNode(string expr)
     }
     if (fmeo <= 0 || fmeo >= expr.length() - 1)
         throw algebra_tools_::except(
-                "Operator location on string " + expr + " is not valid, found at index " + to_string(fmeo) +
-                " while the expression was long " + to_string(expr.length()));
+                "exprNode: Invalid Operator Location");
     string left, right;
 
 
@@ -241,37 +266,10 @@ exprNode::exprNode(string expr)
     left = expr.substr(0, fmeo);
     right = expr.substr(fmeo + 1, expr.length() - fmeo - 1);
 
-    bool leftIsFun = algebra_tools_::isFunction(left);
-    bool rightIsFun = algebra_tools_::isFunction(right);
-
     op = expr.substr(fmeo, 1);
-    bool leftHasOp = algebra_tools_::hasOperator(left);
-    bool rightHasOp = algebra_tools_::hasOperator(right);
 
-    if (leftIsFun)
-    {
-        algebraNode::left = new funcNode(left);
-    } else if (!leftHasOp)
-    {
-        //cout << "const left:" << left << endl;
-        algebraNode::left = new varNode(left);
-    } else
-    {
-        //cout << "var left:" << left << endl;
-        algebraNode::left = new exprNode(left);
-    }
-    if (rightIsFun)
-    {
-        algebraNode::right = new funcNode(right);
-    } else if (!rightHasOp)
-    {
-        //cout << "const right:" << right << endl;
-        algebraNode::right = new varNode(right);
-    } else
-    {
-        //cout << "var right:" << right << endl;
-        algebraNode::right = new exprNode(right);
-    }
+    algebraNode::left = algebra_tools_::newAdequateNode(left);
+    algebraNode::right = algebra_tools_::newAdequateNode(right);
 }
 
 double exprNode::compile(map<string, double> &symMap)
@@ -287,7 +285,7 @@ double exprNode::compile(map<string, double> &symMap)
     if (op == "^")
         return pow(left->compile(symMap), right->compile(symMap));
     else
-        throw algebra_tools_::except("Operator " + op + " is not valid");
+        throw algebra_tools_::except("exprNode: Invalid Operator Symbol");
 }
 
 ///algebraParser
@@ -297,23 +295,7 @@ algebraParser::algebraParser(string expr)
     root = nullptr;
     algebra_tools_::removeWrappingBraces(expr);
     //cout<<expr<<endl;
-    bool isFunction = algebra_tools_::isFunction(expr);
-    bool hasOperator = algebra_tools_::hasOperator(expr);
-
-
-    if (isFunction)
-    {
-        //cout << "function found by parser" << endl;
-        root = new funcNode(expr);
-    } else if (!hasOperator)
-    {
-        //cout << "number found by parser" << endl;
-        root = new varNode(expr);
-    } else
-    {
-        //cout << "expression found by parser" << endl;
-        root = new exprNode(expr);
-    }
+    root = algebra_tools_::newAdequateNode(expr);
 }
 
 [[maybe_unused]] double algebraParser::evaluate()

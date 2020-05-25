@@ -33,6 +33,7 @@ int readCommand(const string &cmd)
                 "\tif the arg is equal to \"stored\" will draw all \n"
                 "\tthe functions in the list, if the arg is a function it\n"
                 "\twill draw the function defined in the args\n"
+                "\tyou can use the name of a stored function as <function> to draw it\n"
                 "\t(function must be R->R, with x as the independent variable)\n"
                 "set <parameter> <value>\n"
                 "\t sets the parameter to the given value\n"
@@ -117,7 +118,10 @@ int readCommand(const string &cmd)
     {
         for (auto const&[key, val] : functions)
         {
-            cout << key << "=" << val << endl;
+            if (key != val)
+                cout << key << "=" << val << endl;
+            else
+                cout << val << endl;
         }
         return 0;
     } else if (cmd == "draw")
@@ -131,6 +135,9 @@ int readCommand(const string &cmd)
                 return -1;
             else
                 toDraw = functions;
+        } else if (functions.contains(args))
+        {
+            toDraw[args] = functions[args];
         } else
         {
             toDraw = {{"f", args}};
