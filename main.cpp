@@ -9,7 +9,7 @@ int readCommand(const string &cmd)
     static int precision = 0;
     static bool drawGrid = true;
     static bool drawAxis = true;
-    static bool drawText = false;
+    //static bool drawText = false;
     static map<string, string> functions;
     if (cmd == "exit")
     {
@@ -18,7 +18,7 @@ int readCommand(const string &cmd)
     {
         cout << "help:\n"
                 "\twill show this message\n"
-                "add <name>=<function>:\n"
+                "store <name>=<function>:\n"
                 "\twill add function to the list of drawn functions\n"
                 "\tunder the label <name>, if no \"=\"is found\n"
                 "\tthe name will be the function itself\n"
@@ -46,9 +46,9 @@ int readCommand(const string &cmd)
                 "\t\t\tchoose if to draw the grid\n"
                 "\t\tdrawAxis (bool):\n"
                 "\t\t\tchoose if to draw the x and y axis\n"
-                "\t\tdrawText (bool):(currently unavailable)\n"
-                "\t\t\tchoose if to draw the function in the left high corner\n"
-                "\tuse \"default\" as value to reset the value\n"
+                //"\t\tdrawText (bool):(currently unavailable)\n"
+                //"\t\t\tchoose if to draw the function in the left high corner\n"
+                //"\tuse \"default\" as value to reset the value\n"
                 "exit:\n"
                 "\twill close the program\n"
                 "\n"
@@ -87,16 +87,17 @@ int readCommand(const string &cmd)
                 drawAxis = true;
             else if (tmp == "false")
                 drawAxis = false;
-        } else if (args == "drawText")
+        }
+        /*else if (args == "drawText")
         {
             cin >> tmp;
             if (tmp == "false" || tmp == "default")
                 drawText = false;
             else if (tmp == "true")
                 drawAxis = true;
-        }
+        }*/
         return 0;
-    } else if (cmd == "add")
+    } else if (cmd == "store")
     {
         string fun;
         cin >> fun;
@@ -143,7 +144,7 @@ int readCommand(const string &cmd)
             toDraw = {{"f", args}};
         }
 
-        drawGraph(toDraw, -1, 0, 0, 0, precision, zoom, drawAxis, drawGrid, drawText);
+        drawGraph(toDraw, -1, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
 
         return 0;
     }

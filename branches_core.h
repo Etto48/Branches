@@ -11,7 +11,6 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
-#include <math.h>
 #include <map>
 
 class algebraParser;
@@ -116,11 +115,11 @@ public:
     static std::vector<std::string> ops()
     { return {"+", "-", "*", "/", "^"}; }//inverse order by priority
     static std::vector<std::string> functions()
-    { return {"ln", "log2", "log", "cos", "sin", "abs", "neg"}; }//functions
+    { return {"ln", "log2", "log", "exp", "cos", "sin", "abs", "neg"}; }//functions
     static std::map<std::string, double> defaultSymMap()
     {
-        return {{"e", exp(1)},
-                {"pi", M_PI}};
+        return {{"e",  exp(1)},
+                {"pi", 2 * acos(0)}};
     }
 
 };

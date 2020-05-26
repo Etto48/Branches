@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core.cpp
-branches_core.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core.h
-
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core.h
 string
 -
@@ -20,8 +16,6 @@ vector
 iostream
 -
 cmath
--
-math.h
 -
 map
 -

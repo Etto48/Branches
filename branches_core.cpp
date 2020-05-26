@@ -214,6 +214,8 @@ double funcNode::compile(map<string, double> &symMap)
         return log2(left->compile(symMap));
     if (func == "log")
         return log10(left->compile(symMap));
+    if (func == "exp")
+        return exp(left->compile(symMap));
     if (func == "cos")
         return cos(left->compile(symMap));
     if (func == "sin")
