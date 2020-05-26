@@ -35,6 +35,11 @@ int readCommand(const string &cmd)
                 "\twill draw the function defined in the args\n"
                 "\tyou can use the name of a stored function as <function> to draw it\n"
                 "\t(function must be R->R, with x as the independent variable)\n"
+                "derivative [store] [<function>|<name>]:\n"
+                "\tprints to the terminal the derivative of <function>\n"
+                "\tif the name of a stored function is provided instead, it prints\n"
+                "\tthe derivative of the stored function\n"
+                "\tif the optional argument store is provided, it will store the derivative\n"
                 "set <parameter> <value>\n"
                 "\t sets the parameter to the given value\n"
                 "\tparameters:\n"
@@ -128,9 +133,35 @@ int readCommand(const string &cmd)
     } else if (cmd == "derivative")
     {
         string args;
+        string fun;
+        bool doStore;
         cin >> args;
-        auto f = algebraParser(args);
-        cout << f.derivative("x") << endl;
+        if (args == "store")
+        {
+            cin >> fun;
+            doStore = true;
+        } else
+        {
+            fun = args;
+            doStore = false;
+        }
+        if (functions.contains(fun))
+        {
+            auto f = algebraParser(functions[fun]);
+            string der = f.derivative("x");
+            if (doStore)
+                functions.insert({fun + "'", der});
+            else
+                cout << fun << "'=" << der << endl;
+        } else
+        {
+            auto f = algebraParser(fun);
+            string der = f.derivative("x");
+            if (doStore)
+                functions.insert({"(" + fun + ")'", der});
+            else
+                cout << "(" << fun << ")'=" << der << endl;
+        }
         return 0;
     } else if (cmd == "draw")
     {

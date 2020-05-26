@@ -567,14 +567,14 @@ std::string exprNode::derivative(const string &direction)
         auto l = left->original;
         auto r = right->original;
 
-        if (ld != "0" && rd != "0" && r != "0" && l != "0")
+        if ((ld == "0" && rd == "0") || (l == "0" && r != "0"))
+            return "0";
+        else if (ld != "0" && rd != "0" && r != "0" && l != "0")
             return "((" + ld + ")*(" + r + ")-(" + l + ")*(" + rd + "))/(" + r + ")^2";
         else if ((ld == "0") && l != "0" && rd != "0")
             return "((" + l + ")*(" + rd + "))/(" + r + ")^2";
         else if ((l == "0" || rd == "0") && ld != "0" && r != "0")
             return "((" + ld + ")*(" + r + "))/(" + r + ")^2";
-        else if (r != "0")
-            return "0";
         else
             throw algebra_tools_::except("Divide by 0");
     } else if (op == "^")
@@ -584,8 +584,12 @@ std::string exprNode::derivative(const string &direction)
         auto l = left->original;
         auto r = right->original;
 
-        if (rd == "0" && ld != "0")
+        if (rd == "0" && ld == "0")
+            return "0";
+        else if (rd == "0")
             return "((" + r + ")*(" + l + ")^(" + r + "-1))*(" + ld + ")";
+        else if (ld == "0")
+            return "((" + l + ")^(" + r + ")*((" + rd + "*ln(" + l + "))";
         else
             return "((" + l + ")^(" + r + ")*((" + rd + "*ln(" + l + ")+(" + r + "*" + ld + ")/(" + l + "))";
     } else
