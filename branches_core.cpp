@@ -216,10 +216,16 @@ double funcNode::compile(map<string, double> &symMap)
         return log10(left->compile(symMap));
     if (func == "exp")
         return exp(left->compile(symMap));
+    if (func == "cosh")
+        return cosh(left->compile(symMap));
+    if (func == "sinh")
+        return sinh(left->compile(symMap));
     if (func == "cos")
         return cos(left->compile(symMap));
     if (func == "sin")
         return sin(left->compile(symMap));
+    if (func == "tan")
+        return tan(left->compile(symMap));
     if (func == "abs")
         return abs(left->compile(symMap));
     if (func == "neg")
