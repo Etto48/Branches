@@ -175,10 +175,8 @@ algebraNode::~algebraNode()
 ///varNode
 varNode::varNode(const string &val)
 {
-    //cout<<"converting: "<<val<<endl;
-    value = val;
+    original = value = val;
     variable = value.find_first_not_of("0123456789") != std::string::npos;
-    //cout<<"val:"<<value<<" var:"<<variable<<endl;
 }
 
 double varNode::compile(map<string, double> &symMap)
@@ -187,11 +185,18 @@ double varNode::compile(map<string, double> &symMap)
     else return stod(value);//I hope it works (it didn't)(sike, super reliable)
 }
 
+std::string varNode::derivative(const string &direction)
+{
+    return variable ? (direction == value ? "1" : "0") : "0";
+}
+
 ///funcNode
 funcNode::funcNode(string content)
 {
     //cout<<"Found function:"<<content<<endl;
+    original = content;
     right = nullptr;
+
     for (auto &f : algebraParser::functions())
     {
         if (content.substr(0, f.length()) == f)
@@ -256,10 +261,203 @@ double funcNode::compile(map<string, double> &symMap)
         throw algebra_tools_::except("funcNode: Invalid Function Name");
 }
 
+std::string funcNode::derivative(const string &direction)
+{
+    if (func == "ceil")
+        return "0";
+    if (func == "floor")
+        return "0";
+    if (func == "ln")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/(" + a + "))";
+    }
+    if (func == "log2")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/((" + a + ")*ln(2)))";
+    }
+    if (func == "log")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/((" + a + ")*ln(10)))";
+    }
+    if (func == "exp")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "(exp(" + a + ")*(" + d + "))";
+    }
+    if (func == "cosh")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "(sinh(" + a + ")*(" + d + "))";
+    }
+    if (func == "sinh")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "(cosh(" + a + ")*(" + d + "))";
+    }
+    if (func == "tanh")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((1-tanh(" + a + ")^2)*(" + d + "))";
+    }
+    if (func == "acosh")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/sqrt((" + a + ")^2-1))";
+    }
+    if (func == "asinh")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/sqrt((" + a + ")^2+1))";
+    }
+    if (func == "atanh")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/(1-(" + a + ")^2))";
+    }
+    if (func == "cos")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "(neg(sin(" + a + "))*(" + d + "))";
+    }
+    if (func == "sin")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "(cos(" + a + ")*(" + d + "))";
+    }
+    if (func == "tan")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/(tan(" + a + ")^2))";
+    }
+    if (func == "acos")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "(neg((" + d + ")/sqrt(1-(" + a + ")^2)))";
+    }
+    if (func == "asin")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/sqrt(1-(" + a + ")^2))";
+    }
+    if (func == "atan")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/(1+(" + a + ")^2))";
+    }
+    if (func == "sqrt")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/(2*(" + a + ")^(1/2)))";
+    }
+    if (func == "cbrt")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((" + d + ")/(3*(" + a + ")^(2/3)))";
+    }
+    if (func == "abs")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "((abs(" + a + ")/(" + a + "))*(" + d + "))";
+    }
+    if (func == "neg")
+    {
+        auto d = left->derivative(direction);
+        auto a = left->original;
+        if (d == "0")
+            return "0";
+        else
+            return "(neg(" + d + "))";
+    } else
+        throw algebra_tools_::except("funcNode: Invalid Function Name");
+}
+
 ///exprNode
 exprNode::exprNode(string expr)
 {
     //cout<<"Found expr:"<<expr<<endl;
+
+    original = expr;
+
     algebra_tools_::removeWrappingBraces(expr);
 
     int depth = 0;
@@ -298,6 +496,9 @@ exprNode::exprNode(string expr)
 
     op = expr.substr(fmeo, 1);
 
+    if (op == "/" && right == "0")
+        throw algebra_tools_::except("Divide by 0");
+
     algebraNode::left = algebra_tools_::newAdequateNode(left);
     algebraNode::right = algebra_tools_::newAdequateNode(right);
 }
@@ -316,6 +517,79 @@ double exprNode::compile(map<string, double> &symMap)
         return pow(left->compile(symMap), right->compile(symMap));
     else
         throw algebra_tools_::except("exprNode: Invalid Operator Symbol");
+}
+
+std::string exprNode::derivative(const string &direction)
+{
+    if (op == "+")
+    {
+        auto ld = left->derivative(direction);
+        auto rd = right->derivative(direction);
+        if (ld == "0" && rd == "0")
+            return "0";
+        else if (ld == "0")
+            return "(" + rd + ")";
+        else if (rd == "0")
+            return "(" + ld + ")";
+        else
+            return "(" + ld + ")+(" + rd + ")";
+    } else if (op == "-")
+    {
+        auto ld = left->derivative(direction);
+        auto rd = right->derivative(direction);
+        if (ld == "0" && rd == "0")
+            return "0";
+        else if (ld == "0")
+            return "neg(" + rd + ")";
+        else if (rd == "0")
+            return "(" + ld + ")";
+        else
+            return "(" + ld + ")-(" + rd + ")";
+    } else if (op == "*")
+    {
+        auto ld = left->derivative(direction);
+        auto rd = right->derivative(direction);
+        auto l = left->original;
+        auto r = right->original;
+
+        if (ld != "0" && rd != "0" && r != "0" && l != "0")
+            return "(" + ld + ")*(" + r + ")+(" + l + ")*(" + rd + ")";
+        else if ((ld == "0" || r == "0") && l != "0" && rd != "0")
+            return "(" + l + ")*(" + rd + ")";
+        else if ((l == "0" || rd == "0") && ld != "0" && r != "0")
+            return "(" + ld + ")*(" + r + ")";
+        else
+            return "0";
+    } else if (op == "/")
+    {
+        auto ld = left->derivative(direction);
+        auto rd = right->derivative(direction);
+        auto l = left->original;
+        auto r = right->original;
+
+        if (ld != "0" && rd != "0" && r != "0" && l != "0")
+            return "((" + ld + ")*(" + r + ")-(" + l + ")*(" + rd + "))/(" + r + ")^2";
+        else if ((ld == "0") && l != "0" && rd != "0")
+            return "((" + l + ")*(" + rd + "))/(" + r + ")^2";
+        else if ((l == "0" || rd == "0") && ld != "0" && r != "0")
+            return "((" + ld + ")*(" + r + "))/(" + r + ")^2";
+        else if (r != "0")
+            return "0";
+        else
+            throw algebra_tools_::except("Divide by 0");
+    } else if (op == "^")
+    {
+        auto ld = left->derivative(direction);
+        auto rd = right->derivative(direction);
+        auto l = left->original;
+        auto r = right->original;
+
+        if (rd == "0" && ld != "0")
+            return "((" + r + ")*(" + l + ")^(" + r + "-1))*(" + ld + ")";
+        else
+            return "((" + l + ")^(" + r + ")*((" + rd + "*ln(" + l + ")+(" + r + "*" + ld + ")/(" + l + "))";
+    } else
+        throw algebra_tools_::except("Invalid operator");
 }
 
 ///algebraParser
@@ -343,6 +617,11 @@ double algebraParser::evaluate(map<string, double> symMap)
 algebraParser::~algebraParser()
 {
     delete root;
+}
+
+std::string algebraParser::derivative(const string &direction)
+{
+    return root->derivative(direction);
 }
 
 

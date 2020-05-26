@@ -57,9 +57,13 @@ protected:
     algebraNode *left;
     algebraNode *right;
 public:
+    std::string original;
+
     algebraNode();
 
     virtual double compile(std::map<std::string, double> &symMap) = 0;
+
+    virtual std::string derivative(const std::string &direction) = 0;
 
     virtual ~algebraNode();
 };
@@ -74,6 +78,8 @@ public:
     explicit varNode(const std::string &val);
 
     double compile(std::map<std::string, double> &symMap) override;
+
+    std::string derivative(const std::string &direction) override;
 };
 
 class funcNode : public algebraNode
@@ -86,6 +92,7 @@ public:
 
     double compile(std::map<std::string, double> &symMap) override;
 
+    std::string derivative(const std::string &direction) override;
 };
 
 class exprNode : public algebraNode
@@ -97,6 +104,8 @@ public:
     explicit exprNode(std::string expr);
 
     double compile(std::map<std::string, double> &symMap) override;
+
+    std::string derivative(const std::string &direction) override;
 };
 
 class algebraParser
@@ -126,6 +135,8 @@ public:
         return {{"e",  exp(1)},
                 {"pi", 2 * acos(0)}};
     }
+
+    std::string derivative(const std::string &direction);
 
 };
 

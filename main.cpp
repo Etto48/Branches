@@ -125,6 +125,13 @@ int readCommand(const string &cmd)
                 cout << val << endl;
         }
         return 0;
+    } else if (cmd == "derivative")
+    {
+        string args;
+        cin >> args;
+        auto f = algebraParser(args);
+        cout << f.derivative("x") << endl;
+        return 0;
     } else if (cmd == "draw")
     {
         string args;
