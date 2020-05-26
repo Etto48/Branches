@@ -143,8 +143,13 @@ int readCommand(const string &cmd)
         {
             toDraw = {{"f", args}};
         }
-
-        drawGraph(toDraw, -1, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
+        try
+        {
+            drawGraph(toDraw, -1, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
+        } catch (algebra_tools_::except &e)
+        {
+            cout << e.what() << endl;
+        }
 
         return 0;
     }

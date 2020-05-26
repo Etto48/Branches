@@ -208,6 +208,10 @@ funcNode::funcNode(string content)
 
 double funcNode::compile(map<string, double> &symMap)
 {
+    if (func == "ceil")
+        return ceil(left->compile(symMap));
+    if (func == "floor")
+        return floor(left->compile(symMap));
     if (func == "ln")
         return log(left->compile(symMap));
     if (func == "log2")
@@ -220,12 +224,30 @@ double funcNode::compile(map<string, double> &symMap)
         return cosh(left->compile(symMap));
     if (func == "sinh")
         return sinh(left->compile(symMap));
+    if (func == "tanh")
+        return tanh(left->compile(symMap));
+    if (func == "acosh")
+        return acosh(left->compile(symMap));
+    if (func == "asinh")
+        return asinh(left->compile(symMap));
+    if (func == "atanh")
+        return atanh(left->compile(symMap));
     if (func == "cos")
         return cos(left->compile(symMap));
     if (func == "sin")
         return sin(left->compile(symMap));
     if (func == "tan")
         return tan(left->compile(symMap));
+    if (func == "acos")
+        return acos(left->compile(symMap));
+    if (func == "asin")
+        return asin(left->compile(symMap));
+    if (func == "atan")
+        return atan(left->compile(symMap));
+    if (func == "sqrt")
+        return sqrt(left->compile(symMap));
+    if (func == "cbrt")
+        return cbrt(left->compile(symMap));
     if (func == "abs")
         return abs(left->compile(symMap));
     if (func == "neg")

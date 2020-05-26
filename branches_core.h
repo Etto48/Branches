@@ -25,10 +25,11 @@ class funcNode;
 
 namespace algebra_tools_
 {
-    struct except : public std::exception
+    class except : public std::exception
     {
+    protected:
         std::string s;
-
+    public:
         explicit except(std::string ss) : s(std::move(ss))
         {}
 
@@ -115,7 +116,11 @@ public:
     static std::vector<std::string> ops()
     { return {"+", "-", "*", "/", "^"}; }//inverse order by priority
     static std::vector<std::string> functions()
-    { return {"ln", "log2", "log", "exp", "cosh", "sinh", "cos", "sin", "tan", "abs", "neg"}; }//functions
+    {
+        return {"ceil", "floor", "ln", "log2", "log", "exp", "cosh", "sinh",
+                "tanh", "acosh", "asinh", "atanh", "cos", "sin",
+                "tan", "acos", "asin", "atan", "sqrt", "cbrt", "abs", "neg"};
+    }//functions
     static std::map<std::string, double> defaultSymMap()
     {
         return {{"e",  exp(1)},
