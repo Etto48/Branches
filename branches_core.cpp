@@ -142,6 +142,15 @@ bool algebra_tools_::goodBraces(const std::string &content)
     return true;
 }
 
+std::string algebra_tools_::dtos(const double &d)
+{
+    if (d == int(d))
+    {
+        return to_string(int(d));
+    } else
+        return to_string(d);
+}
+
 algebraNode *algebra_tools_::newAdequateNode(std::string content)
 {
     //check for balanced braces
@@ -160,6 +169,13 @@ algebraNode *algebra_tools_::newAdequateNode(std::string content)
 
 }
 
+bool algebra_tools_::strEqD(const std::string &expr, const double &d)
+{
+    if (expr.find_first_not_of(".0123456789") != std::string::npos)return false;
+    else if (stod(expr) == d)return true;
+    return false;
+}
+
 ///algebraNode
 algebraNode::algebraNode()
 {
@@ -172,22 +188,43 @@ algebraNode::~algebraNode()
     delete right;
 }
 
+double algebraNode::compile()
+{
+    auto dummyMap = algebraParser::defaultSymMap();
+    return compile(dummyMap);
+}
+
 ///varNode
 varNode::varNode(const string &val)
 {
     original = value = val;
-    variable = value.find_first_not_of("0123456789") != std::string::npos;
+    variable = value.find_first_not_of(".0123456789") != std::string::npos;
 }
 
 double varNode::compile(map<string, double> &symMap)
 {
-    if (variable) return symMap[value];
-    else return stod(value);//I hope it works (it didn't)(sike, super reliable)
+    if (variable)
+    {
+        if (symMap.contains(value))
+            return symMap[value];
+        else
+            throw algebra_tools_::except("Not recognized symbol \"" + value + "\"");
+    } else return stod(value);//I hope it works (it didn't)(sike, super reliable)
 }
 
 std::string varNode::derivative(const string &direction)
 {
     return variable ? (direction == value ? "1" : "0") : "0";
+}
+
+std::string varNode::simplify()
+{
+    return value;
+}
+
+std::string varNode::nodetype()
+{
+    return "var";
 }
 
 ///funcNode
@@ -451,6 +488,29 @@ std::string funcNode::derivative(const string &direction)
         throw algebra_tools_::except("funcNode: Invalid Function Name");
 }
 
+std::string funcNode::simplify()
+{
+    string ret;
+    try
+    {
+        double v = left->compile();
+        if (v < 0)
+            ret = "neg(" + algebra_tools_::dtos(-v) + ")";
+        else
+            ret = algebra_tools_::dtos(v);
+    } catch (algebra_tools_::except &)
+    {
+        ret = left->simplify();
+        algebra_tools_::removeWrappingBraces(ret);
+    }
+    return func + "(" + ret + ")";
+}
+
+std::string funcNode::nodetype()
+{
+    return "func";
+}
+
 ///exprNode
 exprNode::exprNode(string expr)
 {
@@ -489,7 +549,7 @@ exprNode::exprNode(string expr)
     string left, right;
 
 
-    ///super wrong
+    //super wrong
 
     left = expr.substr(0, fmeo);
     right = expr.substr(fmeo + 1, expr.length() - fmeo - 1);
@@ -570,11 +630,11 @@ std::string exprNode::derivative(const string &direction)
         if ((ld == "0" && rd == "0") || (l == "0" && r != "0"))
             return "0";
         else if (ld != "0" && rd != "0" && r != "0" && l != "0")
-            return "((" + ld + ")*(" + r + ")-(" + l + ")*(" + rd + "))/(" + r + ")^2";
+            return "((" + ld + ")/(" + r + ")-(" + l + ")*(" + rd + ")/((" + r + ")^2))";
         else if ((ld == "0") && l != "0" && rd != "0")
-            return "((" + l + ")*(" + rd + "))/(" + r + ")^2";
+            return "neg((" + l + ")*(" + rd + ")/((" + r + ")^2))";
         else if ((l == "0" || rd == "0") && ld != "0" && r != "0")
-            return "((" + ld + ")*(" + r + "))/(" + r + ")^2";
+            return "((" + ld + ")/(" + r + "))";
         else
             throw algebra_tools_::except("Divide by 0");
     } else if (op == "^")
@@ -587,13 +647,87 @@ std::string exprNode::derivative(const string &direction)
         if (rd == "0" && ld == "0")
             return "0";
         else if (rd == "0")
-            return "((" + r + ")*(" + l + ")^(" + r + "-1))*(" + ld + ")";
+            return "((" + r + ")*(" + l + ")^((" + r + ")-1))*(" + ld + ")";
         else if (ld == "0")
-            return "((" + l + ")^(" + r + ")*((" + rd + "*ln(" + l + "))";
+            return "((" + l + ")^(" + r + ")*((" + rd + ")*ln(" + l + ")))";
         else
-            return "((" + l + ")^(" + r + ")*((" + rd + "*ln(" + l + ")+(" + r + "*" + ld + ")/(" + l + "))";
+            return "((" + l + ")^(" + r + ")*((" + rd + ")*ln(" + l + ")+((" + r + ")*(" + ld + "))/(" + l + ")))";
     } else
         throw algebra_tools_::except("Invalid operator");
+}
+
+std::string exprNode::simplify()
+{
+    string retl, retr;
+    try
+    {
+        double v = left->compile();
+        if (v < 0)
+            retl = "neg(" + algebra_tools_::dtos(-v) + ")";
+        else
+            retl = algebra_tools_::dtos(v);
+    } catch (algebra_tools_::except &)
+    {
+        retl = left->simplify();
+        algebra_tools_::removeWrappingBraces(retl);
+    }
+    try
+    {
+        double v = right->compile();
+        if (v < 0)
+            retr = "neg(" + algebra_tools_::dtos(-v) + ")";
+        else
+            retr = algebra_tools_::dtos(v);
+    } catch (algebra_tools_::except &)
+    {
+        retr = right->simplify();
+        algebra_tools_::removeWrappingBraces(retl);
+    }
+    //cout<<"L: "<<retl<<" R: "<<retr<<endl;
+    ///wip
+    if (op == "+" && algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))return "0";
+    else if (op == "+" && algebra_tools_::strEqD(retl, 0) && !algebra_tools_::strEqD(retr, 0))
+        return ((right->nodetype() == "expr" && retr.size() != 1) ? "(" + retr + ")" : retr);
+    else if (op == "+" && !algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))
+        return ((left->nodetype() == "expr" && retl.size() != 1) ? "(" + retl + ")" : retl);
+
+    if (op == "-" && algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))return "0";
+    else if (op == "-" && algebra_tools_::strEqD(retl, 0) && !algebra_tools_::strEqD(retr, 0))
+        return "neg(" + retr + ")";
+    else if (op == "-" && !algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))
+        return ((left->nodetype() == "expr" && retl.size() != 1) ? "(" + retl + ")" : retl);
+
+    if (op == "*" && algebra_tools_::strEqD(retl, 0) || algebra_tools_::strEqD(retr, 0))return "0";
+    else if (op == "*" && algebra_tools_::strEqD(retl, 1) && !algebra_tools_::strEqD(retr, 1))
+        return ((right->nodetype() == "expr" && retr.size() != 1) ? "(" + retr + ")" : retr);
+    else if (op == "*" && !algebra_tools_::strEqD(retl, 1) && algebra_tools_::strEqD(retr, 1))
+        return ((left->nodetype() == "expr" && retl.size() != 1) ? "(" + retl + ")" : retl);
+
+    if (op == "/" && algebra_tools_::strEqD(retl, 0))return "0";
+    else if (op == "/" && algebra_tools_::strEqD(retl, 1) && algebra_tools_::strEqD(retr, 1))return "1";
+    else if (op == "/" && algebra_tools_::strEqD(retr, 1))
+        return ((left->nodetype() == "expr" && retl.size() != 1) ? "(" + retl + ")" : retl);
+
+    if (op == "^" && !algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))return "1";
+    else if (op == "^" && algebra_tools_::strEqD(retr, 1))
+        return ((left->nodetype() == "expr" && retl.size() != 1) ? "(" + retl + ")" : retl);
+
+    else
+    {
+        if ((left->nodetype() == "expr" && retl.size() != 1) && (right->nodetype() == "expr" && retr.size() != 1))
+            return "(" + retl + ")" + op + "(" + retr + ")";
+        else if (left->nodetype() == "expr" && retl.size() != 1)
+            return "(" + retl + ")" + op + retr;
+        else if (right->nodetype() == "expr" && retr.size() != 1)
+            return retl + op + "(" + retr + ")";
+        else
+            return retl + op + retr;
+    }
+}
+
+std::string exprNode::nodetype()
+{
+    return "expr";
 }
 
 ///algebraParser
@@ -625,7 +759,13 @@ algebraParser::~algebraParser()
 
 std::string algebraParser::derivative(const string &direction)
 {
-    return root->derivative(direction);
+    return algebraParser(root->derivative(direction)).simplify();
+    //return root->derivative(direction);
+}
+
+std::string algebraParser::simplify()
+{
+    return root->simplify();
 }
 
 

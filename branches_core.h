@@ -48,6 +48,10 @@ namespace algebra_tools_
     bool goodBraces(const std::string &content);
 
     algebraNode *newAdequateNode(std::string content);
+
+    bool strEqD(const std::string &expr, const double &d);
+
+    std::string dtos(const double &d);
 }
 
 class algebraNode
@@ -61,9 +65,15 @@ public:
 
     algebraNode();
 
+    double compile();
+
     virtual double compile(std::map<std::string, double> &symMap) = 0;
 
     virtual std::string derivative(const std::string &direction) = 0;
+
+    virtual std::string simplify() = 0;
+
+    virtual std::string nodetype() = 0;
 
     virtual ~algebraNode();
 };
@@ -80,6 +90,10 @@ public:
     double compile(std::map<std::string, double> &symMap) override;
 
     std::string derivative(const std::string &direction) override;
+
+    std::string simplify() override;
+
+    std::string nodetype() override;
 };
 
 class funcNode : public algebraNode
@@ -93,6 +107,10 @@ public:
     double compile(std::map<std::string, double> &symMap) override;
 
     std::string derivative(const std::string &direction) override;
+
+    std::string simplify() override;
+
+    std::string nodetype() override;
 };
 
 class exprNode : public algebraNode
@@ -106,6 +124,10 @@ public:
     double compile(std::map<std::string, double> &symMap) override;
 
     std::string derivative(const std::string &direction) override;
+
+    std::string simplify() override;
+
+    std::string nodetype() override;
 };
 
 class algebraParser
@@ -119,6 +141,8 @@ public:
     [[maybe_unused]] double evaluate();
 
     double evaluate(std::map<std::string, double> symMap);
+
+    std::string simplify();
 
     ~algebraParser();
 

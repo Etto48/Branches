@@ -23,7 +23,7 @@ int readCommand(const string &cmd)
                 "\tunder the label <name>, if no \"=\"is found\n"
                 "\tthe name will be the function itself\n"
                 "remove [<name>|all]:\n"
-                "\tif the arg is equal to \"all\" all the stored functions\n"
+                "\tif the arg is equal to \"stored\" all the stored functions\n"
                 "\twill be removed from the list\n"
                 "\twill remove the function under the label <name>\n"
                 "list:\n"
@@ -41,7 +41,7 @@ int readCommand(const string &cmd)
                 "\tthe derivative of the stored function\n"
                 "\tif the optional argument store is provided, it will store the derivative\n"
                 "set <parameter> <value>\n"
-                "\t sets the parameter to the given value\n"
+                "\tsets the parameter to the given value\n"
                 "\tparameters:\n"
                 "\t\tzoom (double):\n"
                 "\t\t\tsets the zoom for the draw function\n"
@@ -114,7 +114,7 @@ int readCommand(const string &cmd)
     {
         string name;
         cin >> name;
-        if (name == "all")
+        if (name == "stored")
         {
             functions = {};
         }
@@ -161,6 +161,54 @@ int readCommand(const string &cmd)
                 functions.insert({"(" + fun + ")'", der});
             else
                 cout << "(" << fun << ")'=" << der << endl;
+        }
+        return 0;
+    } else if (cmd == "simplify")
+    {
+        string args;
+        string fun;
+        bool doStore;
+        cin >> args;
+        if (args == "store")
+        {
+            cin >> fun;
+            doStore = true;
+        } else
+        {
+            fun = args;
+            doStore = false;
+        }
+        if (functions.contains(fun))
+        {
+            auto f = algebraParser(functions[fun]);
+            string s = f.simplify();
+            if (doStore)
+                functions.insert({fun + "s", s});
+            else
+                cout << fun << "s=" << s << endl;
+        } else
+        {
+            auto f = algebraParser(fun);
+            string s = f.simplify();
+            if (doStore)
+                functions.insert({"(" + fun + ")'", s});
+            else
+                cout << "(" << fun << ")'=" << s << endl;
+        }
+        return 0;
+    } else if (cmd == "study")
+    {
+        string args;
+        cin >> args;
+        if (functions.contains(args))
+            args = functions[args];
+        try
+        {
+            drawStudy(args, -1, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
+        }
+        catch (algebra_tools_::except &e)
+        {
+            cout << e.what() << endl;
         }
         return 0;
     } else if (cmd == "draw")
@@ -216,6 +264,5 @@ int main(int argc, char **argv)
             ret = readCommand(operation);
         }
     }
-
     return 0;
 }

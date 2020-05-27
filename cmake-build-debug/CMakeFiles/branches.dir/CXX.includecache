@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core.cpp
-branches_core.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core.h
-
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core.h
 string
 -
@@ -23,4 +19,18 @@ cmath
 -
 map
 -
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/graph.h
+Windows.h
+-
+branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core.h
+random
+-
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/main.cpp
+iostream
+-
+graph.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/graph.h
 
