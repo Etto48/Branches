@@ -6,25 +6,13 @@
 
 #IncludeRegexTransform: 
 
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraNode/algebraNode.cpp
-../algebraParser/algebraParser.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h
-
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraNode/algebraNode.h
 ../branches_core.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
 
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.cpp
-algebraParser.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h
-
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h
 ../branches_core.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
-
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebra_tools_/algebra_tools_.cpp
-../algebraParser/algebraParser.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h
 
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebra_tools_/algebra_tools_.h
 ../branches_core.h
@@ -64,33 +52,11 @@ D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/exprNode
 ../branches_core.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
 
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/funcNode/funcNode.cpp
-../algebraParser/algebraParser.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h
-
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/funcNode/funcNode.h
 ../branches_core.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
 
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/varNode/varNode.cpp
-../algebraParser/algebraParser.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h
-
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/varNode/varNode.h
 ../branches_core.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
-
-D:/OneDrive - University of Pisa/Shared Projects/branches/graph.h
-Windows.h
--
-branches_core/branches_core.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
-random
--
-
-D:/OneDrive - University of Pisa/Shared Projects/branches/main.cpp
-iostream
--
-graph.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/graph.h
 

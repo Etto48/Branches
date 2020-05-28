@@ -178,32 +178,51 @@ std::string exprNode::simplify()
         retr = right->simplify();
         algebra_tools_::removeWrappingBraces(retl);
     }
+
     //cout<<"L: "<<retl<<" R: "<<retr<<endl;
-    ///wip
-    if (op == "+" && algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))return "0";
+    ///simplify optimizations wip
+    if (op == "+" && (retr == "neg(" + retl + ")" ||
+                      (algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))))//if sides are inverse or 0
+        return "0";
+    else if (op == "+" && (retl == retr))
+        return (left->nodetype() == "expr" && retl.size() != 1) ? "2*(" + retl + ")" : "2*" + retl;
     else if (op == "+" && algebra_tools_::strEqD(retl, 0) && !algebra_tools_::strEqD(retr, 0))
         return ((right->nodetype() == "expr" && retr.size() != 1) ? "(" + retr + ")" : retr);
     else if (op == "+" && !algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))
         return ((left->nodetype() == "expr" && retl.size() != 1) ? "(" + retl + ")" : retl);
 
-    if (op == "-" && algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))return "0";
+    if (op == "-" && retl == retr)//if both sides are equal
+        return "0";
+    else if (op == "-" && (retr == "neg(" + retl + ")"))
+        return (left->nodetype() == "expr" && retl.size() != 1) ? "2*(" + retl + ")" : "2*" + retl;
+    else if (op == "-" && (retl == "neg(" + retr + ")"))
+        return "2*neg(" + retr + ")";
     else if (op == "-" && algebra_tools_::strEqD(retl, 0) && !algebra_tools_::strEqD(retr, 0))
         return "neg(" + retr + ")";
     else if (op == "-" && !algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))
         return ((left->nodetype() == "expr" && retl.size() != 1) ? "(" + retl + ")" : retl);
 
-    if (op == "*" && algebra_tools_::strEqD(retl, 0) || algebra_tools_::strEqD(retr, 0))return "0";
+    if (op == "*" && (retr == "neg(" + retl + ")" ||
+                      (algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))))//if sides are inverse or 0
+        return (left->nodetype() == "expr" && retl.size() != 1) ? "neg((" + retl + ")^2)" : "neg(" + retl + "^2)";
+    else if (op == "*" && (retl == retr))
+        return (right->nodetype() == "expr" && retr.size() != 1) ? "(" + retl + ")^2" : retl + "^2";
+    else if (op == "*" && algebra_tools_::strEqD(retl, 0) || algebra_tools_::strEqD(retr, 0))
+        return "0";
     else if (op == "*" && algebra_tools_::strEqD(retl, 1) && !algebra_tools_::strEqD(retr, 1))
         return ((right->nodetype() == "expr" && retr.size() != 1) ? "(" + retr + ")" : retr);
     else if (op == "*" && !algebra_tools_::strEqD(retl, 1) && algebra_tools_::strEqD(retr, 1))
         return ((left->nodetype() == "expr" && retl.size() != 1) ? "(" + retl + ")" : retl);
 
-    if (op == "/" && algebra_tools_::strEqD(retl, 0))return "0";
-    else if (op == "/" && algebra_tools_::strEqD(retl, 1) && algebra_tools_::strEqD(retr, 1))return "1";
+    if (op == "/" && algebra_tools_::strEqD(retl, 0))
+        return "0";
+    else if (op == "/" && algebra_tools_::strEqD(retl, 1) && algebra_tools_::strEqD(retr, 1))
+        return "1";
     else if (op == "/" && algebra_tools_::strEqD(retr, 1))
         return ((left->nodetype() == "expr" && retl.size() != 1) ? "(" + retl + ")" : retl);
 
-    if (op == "^" && !algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))return "1";
+    if (op == "^" && !algebra_tools_::strEqD(retl, 0) && algebra_tools_::strEqD(retr, 0))
+        return "1";
     else if (op == "^" && algebra_tools_::strEqD(retr, 1))
         return ((left->nodetype() == "expr" && retl.size() != 1) ? "(" + retl + ")" : retl);
 
