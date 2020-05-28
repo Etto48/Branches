@@ -82,13 +82,40 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core.cpp">
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraNode/algebraNode.cpp">
 			<Option target="branches"/>
 		</Unit>
-		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core.h">
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraNode/algebraNode.h">
 			<Option target="branches"/>
 		</Unit>
-		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/graph.h">
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.cpp">
+			<Option target="branches"/>
+		</Unit>
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h">
+			<Option target="branches"/>
+		</Unit>
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebra_tools_/algebra_tools_.cpp">
+			<Option target="branches"/>
+		</Unit>
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebra_tools_/algebra_tools_.h">
+			<Option target="branches"/>
+		</Unit>
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/exprNode/exprNode.cpp">
+			<Option target="branches"/>
+		</Unit>
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/exprNode/exprNode.h">
+			<Option target="branches"/>
+		</Unit>
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/funcNode/funcNode.cpp">
+			<Option target="branches"/>
+		</Unit>
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/funcNode/funcNode.h">
+			<Option target="branches"/>
+		</Unit>
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/varNode/varNode.cpp">
+			<Option target="branches"/>
+		</Unit>
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/varNode/varNode.h">
 			<Option target="branches"/>
 		</Unit>
 		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/main.cpp">

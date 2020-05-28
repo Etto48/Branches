@@ -124,32 +124,167 @@ branches\fast:
 	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\build
 .PHONY : branches\fast
 
-branches_core.obj: branches_core.cpp.obj
+branches_core\algebraNode\algebraNode.obj: branches_core\algebraNode\algebraNode.cpp.obj
 
-.PHONY : branches_core.obj
+.PHONY : branches_core\algebraNode\algebraNode.obj
 
 # target to build an object file
-branches_core.cpp.obj:
-	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core.cpp.obj
-.PHONY : branches_core.cpp.obj
+branches_core\algebraNode\algebraNode.cpp.obj:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\algebraNode\algebraNode.cpp.obj
+.PHONY : branches_core\algebraNode\algebraNode.cpp.obj
 
-branches_core.i: branches_core.cpp.i
+branches_core\algebraNode\algebraNode.i: branches_core\algebraNode\algebraNode.cpp.i
 
-.PHONY : branches_core.i
+.PHONY : branches_core\algebraNode\algebraNode.i
 
 # target to preprocess a source file
-branches_core.cpp.i:
-	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core.cpp.i
-.PHONY : branches_core.cpp.i
+branches_core\algebraNode\algebraNode.cpp.i:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\algebraNode\algebraNode.cpp.i
+.PHONY : branches_core\algebraNode\algebraNode.cpp.i
 
-branches_core.s: branches_core.cpp.s
+branches_core\algebraNode\algebraNode.s: branches_core\algebraNode\algebraNode.cpp.s
 
-.PHONY : branches_core.s
+.PHONY : branches_core\algebraNode\algebraNode.s
 
 # target to generate assembly for a file
-branches_core.cpp.s:
-	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core.cpp.s
-.PHONY : branches_core.cpp.s
+branches_core\algebraNode\algebraNode.cpp.s:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\algebraNode\algebraNode.cpp.s
+.PHONY : branches_core\algebraNode\algebraNode.cpp.s
+
+branches_core\algebraParser\algebraParser.obj: branches_core\algebraParser\algebraParser.cpp.obj
+
+.PHONY : branches_core\algebraParser\algebraParser.obj
+
+# target to build an object file
+branches_core\algebraParser\algebraParser.cpp.obj:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\algebraParser\algebraParser.cpp.obj
+.PHONY : branches_core\algebraParser\algebraParser.cpp.obj
+
+branches_core\algebraParser\algebraParser.i: branches_core\algebraParser\algebraParser.cpp.i
+
+.PHONY : branches_core\algebraParser\algebraParser.i
+
+# target to preprocess a source file
+branches_core\algebraParser\algebraParser.cpp.i:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\algebraParser\algebraParser.cpp.i
+.PHONY : branches_core\algebraParser\algebraParser.cpp.i
+
+branches_core\algebraParser\algebraParser.s: branches_core\algebraParser\algebraParser.cpp.s
+
+.PHONY : branches_core\algebraParser\algebraParser.s
+
+# target to generate assembly for a file
+branches_core\algebraParser\algebraParser.cpp.s:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\algebraParser\algebraParser.cpp.s
+.PHONY : branches_core\algebraParser\algebraParser.cpp.s
+
+branches_core\algebra_tools_\algebra_tools_.obj: branches_core\algebra_tools_\algebra_tools_.cpp.obj
+
+.PHONY : branches_core\algebra_tools_\algebra_tools_.obj
+
+# target to build an object file
+branches_core\algebra_tools_\algebra_tools_.cpp.obj:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\algebra_tools_\algebra_tools_.cpp.obj
+.PHONY : branches_core\algebra_tools_\algebra_tools_.cpp.obj
+
+branches_core\algebra_tools_\algebra_tools_.i: branches_core\algebra_tools_\algebra_tools_.cpp.i
+
+.PHONY : branches_core\algebra_tools_\algebra_tools_.i
+
+# target to preprocess a source file
+branches_core\algebra_tools_\algebra_tools_.cpp.i:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\algebra_tools_\algebra_tools_.cpp.i
+.PHONY : branches_core\algebra_tools_\algebra_tools_.cpp.i
+
+branches_core\algebra_tools_\algebra_tools_.s: branches_core\algebra_tools_\algebra_tools_.cpp.s
+
+.PHONY : branches_core\algebra_tools_\algebra_tools_.s
+
+# target to generate assembly for a file
+branches_core\algebra_tools_\algebra_tools_.cpp.s:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\algebra_tools_\algebra_tools_.cpp.s
+.PHONY : branches_core\algebra_tools_\algebra_tools_.cpp.s
+
+branches_core\exprNode\exprNode.obj: branches_core\exprNode\exprNode.cpp.obj
+
+.PHONY : branches_core\exprNode\exprNode.obj
+
+# target to build an object file
+branches_core\exprNode\exprNode.cpp.obj:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\exprNode\exprNode.cpp.obj
+.PHONY : branches_core\exprNode\exprNode.cpp.obj
+
+branches_core\exprNode\exprNode.i: branches_core\exprNode\exprNode.cpp.i
+
+.PHONY : branches_core\exprNode\exprNode.i
+
+# target to preprocess a source file
+branches_core\exprNode\exprNode.cpp.i:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\exprNode\exprNode.cpp.i
+.PHONY : branches_core\exprNode\exprNode.cpp.i
+
+branches_core\exprNode\exprNode.s: branches_core\exprNode\exprNode.cpp.s
+
+.PHONY : branches_core\exprNode\exprNode.s
+
+# target to generate assembly for a file
+branches_core\exprNode\exprNode.cpp.s:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\exprNode\exprNode.cpp.s
+.PHONY : branches_core\exprNode\exprNode.cpp.s
+
+branches_core\funcNode\funcNode.obj: branches_core\funcNode\funcNode.cpp.obj
+
+.PHONY : branches_core\funcNode\funcNode.obj
+
+# target to build an object file
+branches_core\funcNode\funcNode.cpp.obj:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\funcNode\funcNode.cpp.obj
+.PHONY : branches_core\funcNode\funcNode.cpp.obj
+
+branches_core\funcNode\funcNode.i: branches_core\funcNode\funcNode.cpp.i
+
+.PHONY : branches_core\funcNode\funcNode.i
+
+# target to preprocess a source file
+branches_core\funcNode\funcNode.cpp.i:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\funcNode\funcNode.cpp.i
+.PHONY : branches_core\funcNode\funcNode.cpp.i
+
+branches_core\funcNode\funcNode.s: branches_core\funcNode\funcNode.cpp.s
+
+.PHONY : branches_core\funcNode\funcNode.s
+
+# target to generate assembly for a file
+branches_core\funcNode\funcNode.cpp.s:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\funcNode\funcNode.cpp.s
+.PHONY : branches_core\funcNode\funcNode.cpp.s
+
+branches_core\varNode\varNode.obj: branches_core\varNode\varNode.cpp.obj
+
+.PHONY : branches_core\varNode\varNode.obj
+
+# target to build an object file
+branches_core\varNode\varNode.cpp.obj:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\varNode\varNode.cpp.obj
+.PHONY : branches_core\varNode\varNode.cpp.obj
+
+branches_core\varNode\varNode.i: branches_core\varNode\varNode.cpp.i
+
+.PHONY : branches_core\varNode\varNode.i
+
+# target to preprocess a source file
+branches_core\varNode\varNode.cpp.i:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\varNode\varNode.cpp.i
+.PHONY : branches_core\varNode\varNode.cpp.i
+
+branches_core\varNode\varNode.s: branches_core\varNode\varNode.cpp.s
+
+.PHONY : branches_core\varNode\varNode.s
+
+# target to generate assembly for a file
+branches_core\varNode\varNode.cpp.s:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\varNode\varNode.cpp.s
+.PHONY : branches_core\varNode\varNode.cpp.s
 
 main.obj: main.cpp.obj
 
@@ -187,9 +322,24 @@ help:
 	@echo ... branches
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... branches_core.obj
-	@echo ... branches_core.i
-	@echo ... branches_core.s
+	@echo ... branches_core/algebraNode/algebraNode.obj
+	@echo ... branches_core/algebraNode/algebraNode.i
+	@echo ... branches_core/algebraNode/algebraNode.s
+	@echo ... branches_core/algebraParser/algebraParser.obj
+	@echo ... branches_core/algebraParser/algebraParser.i
+	@echo ... branches_core/algebraParser/algebraParser.s
+	@echo ... branches_core/algebra_tools_/algebra_tools_.obj
+	@echo ... branches_core/algebra_tools_/algebra_tools_.i
+	@echo ... branches_core/algebra_tools_/algebra_tools_.s
+	@echo ... branches_core/exprNode/exprNode.obj
+	@echo ... branches_core/exprNode/exprNode.i
+	@echo ... branches_core/exprNode/exprNode.s
+	@echo ... branches_core/funcNode/funcNode.obj
+	@echo ... branches_core/funcNode/funcNode.i
+	@echo ... branches_core/funcNode/funcNode.s
+	@echo ... branches_core/varNode/varNode.obj
+	@echo ... branches_core/varNode/varNode.i
+	@echo ... branches_core/varNode/varNode.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

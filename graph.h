@@ -6,7 +6,7 @@
 #define BRANCHES_GRAPH_H
 
 #include <Windows.h>
-#include "branches_core.h"
+#include "branches_core/branches_core.h"
 #include <random>
 
 void drawStudy
