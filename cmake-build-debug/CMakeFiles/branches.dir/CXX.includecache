@@ -6,3 +6,85 @@
 
 #IncludeRegexTransform: 
 
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraNode/algebraNode.h
+../branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h
+../branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebra_tools_/algebra_tools_.h
+../branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+string
+-
+utility
+-
+vector
+-
+iostream
+-
+cmath
+-
+map
+-
+algebra_tools_/algebra_tools_.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebra_tools_/algebra_tools_.h
+algebraParser/algebraParser.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h
+algebraNode/algebraNode.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraNode/algebraNode.h
+varNode/varNode.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/varNode/varNode.h
+exprNode/exprNode.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/exprNode/exprNode.h
+funcNode/funcNode.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/funcNode/funcNode.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/exprNode/exprNode.h
+../branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/funcNode/funcNode.h
+../branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/varNode/varNode.h
+../branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/graph.h
+Windows.h
+-
+branches_core/branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+random
+-
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/main.cpp
+iostream
+-
+win.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/win.h
+graph.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/graph.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/win.h
+Windows.h
+-
+gdiplus.h
+-
+objidl.h
+-
+vector
+-
+map
+-
+string
+-
+branches_core/branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
