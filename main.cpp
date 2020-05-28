@@ -1,4 +1,5 @@
 #include <iostream>
+#include "win.h"
 #include "graph.h"
 
 using namespace std;
@@ -231,7 +232,7 @@ int readCommand(const string &cmd)
         }
         try
         {
-            drawGraph(toDraw, -1, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
+            drawGraph(toDraw, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
         } catch (algebra_tools_::except &e)
         {
             cout << e.what() << endl;

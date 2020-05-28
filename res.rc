@@ -1,0 +1,7 @@
+#ifndef _resource_rc
+#define _resource_rc
+
+MAINICON ICON "br.ico" //If you can set any name
+
+
+#endif // _resource_rc

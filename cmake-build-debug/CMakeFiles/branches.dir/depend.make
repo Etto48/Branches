@@ -64,4 +64,7 @@ CMakeFiles\branches.dir\main.cpp.obj: ..\branches_core\funcNode\funcNode.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\branches_core\varNode\varNode.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\graph.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\main.cpp
+CMakeFiles\branches.dir\main.cpp.obj: ..\win.h
+
+CMakeFiles\branches.dir\res.rc.res: ..\res.rc
 

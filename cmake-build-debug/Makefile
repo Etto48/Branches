@@ -313,6 +313,15 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\main.cpp.s
 .PHONY : main.cpp.s
 
+res.res: res.rc.res
+
+.PHONY : res.res
+
+# target to build an object file
+res.rc.res:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\res.rc.res
+.PHONY : res.rc.res
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -343,6 +352,7 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... res.res
 .PHONY : help
 
 
