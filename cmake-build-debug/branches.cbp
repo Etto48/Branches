@@ -82,9 +82,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/3d.h">
-			<Option target="branches"/>
-		</Unit>
 		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraNode/algebraNode.cpp">
 			<Option target="branches"/>
 		</Unit>
@@ -124,10 +121,7 @@
 		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/main.cpp">
 			<Option target="branches"/>
 		</Unit>
-		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/res.rc">
-			<Option target="branches"/>
-		</Unit>
-		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/win.h">
+		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/resources/res.rc">
 			<Option target="branches"/>
 		</Unit>
 		<Unit filename="D:/OneDrive - University of Pisa/Shared Projects/branches/CMakeLists.txt">

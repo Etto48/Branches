@@ -6,7 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/branches.dir/branches_core/funcNode/funcNode.cpp.obj"
   "CMakeFiles/branches.dir/branches_core/varNode/varNode.cpp.obj"
   "CMakeFiles/branches.dir/main.cpp.obj"
-  "CMakeFiles/branches.dir/res.rc.res"
+  "CMakeFiles/branches.dir/resources/res.rc.res"
   "branches.exe"
   "branches.exe.manifest"
   "branches.lib"

@@ -19,7 +19,7 @@ set(CMAKE_CXX_COMPILER_ID "MSVC")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   )
 set(CMAKE_DEPENDS_CHECK_RC
-  "D:/OneDrive - University of Pisa/Shared Projects/branches/res.rc" "D:/OneDrive - University of Pisa/Shared Projects/branches/cmake-build-debug/CMakeFiles/branches.dir/res.rc.res"
+  "D:/OneDrive - University of Pisa/Shared Projects/branches/resources/res.rc" "D:/OneDrive - University of Pisa/Shared Projects/branches/cmake-build-debug/CMakeFiles/branches.dir/resources/res.rc.res"
   )
 
 # The include file search paths:

@@ -1,6 +1,6 @@
 #include <iostream>
-#include "win.h"
-#include "graph.h"
+#include "graphics/winDraw.h"
+#include "graphics/winStudy.h"
 
 using namespace std;
 
@@ -19,24 +19,37 @@ int readCommand(const string &cmd)
     {
         cout << "help:\n"
                 "\twill show this message\n"
-                "store <name>=<function>:\n"
+                "store [<name>=]<function>:\n"
                 "\twill add function to the list of drawn functions\n"
                 "\tunder the label <name>, if no \"=\"is found\n"
                 "\tthe name will be the function itself\n"
-                "remove [<name>|all]:\n"
+                "remove|rm <name>|all:\n"
                 "\tif the arg is equal to \"stored\" all the stored functions\n"
                 "\twill be removed from the list\n"
                 "\twill remove the function under the label <name>\n"
-                "list:\n"
+                "list|ls:\n"
                 "\twill display all the current labels and functions in the list\n"
                 "\tin the format <name>=<function>\n"
-                "draw [<function>|stored]:\n"
+                "draw <function>|<name>|stored:\n"
                 "\tif the arg is equal to \"stored\" will draw all \n"
                 "\tthe functions in the list, if the arg is a function it\n"
                 "\twill draw the function defined in the args\n"
-                "\tyou can use the name of a stored function as <function> to draw it\n"
+                "\tyou can use the name of a stored function to draw it\n"
                 "\t(function must be R->R, with x as the independent variable)\n"
-                "derivative [store] [<function>|<name>]:\n"
+                "study <function>|<name>:\n"
+                "\tdraws the study of the required function or stored function\n"
+                "\thighlights maxima, minima and inflections, shows a different background\n"
+                "\t\tred:\n"
+                "\t\t\tincreasing interva\n"
+                "\t\tblue:\n"
+                "\t\t\tdecreasing interval\n"
+                "\t\tyellow:\n"
+                "\t\t\tconcave interval\n"
+                "\t\tcyan:\n"
+                "\t\t\tconvex interval\n"
+                "\tif the function does not exist on a certain interval it will be\n"
+                "\tcovered from a black red-crossed background\n"
+                "derivative|diff [store] <function>|<name>:\n"
                 "\tprints to the terminal the derivative of <function>\n"
                 "\tif the name of a stored function is provided instead, it prints\n"
                 "\tthe derivative of the stored function\n"
@@ -111,7 +124,7 @@ int readCommand(const string &cmd)
         fun.erase(0, fun.find('=') + 1);
         functions.insert({fName, fun});
         return 0;
-    } else if (cmd == "remove")
+    } else if (cmd == "remove" || cmd == "rm")
     {
         string name;
         cin >> name;
@@ -121,7 +134,7 @@ int readCommand(const string &cmd)
         }
         functions.erase(name);
         return 0;
-    } else if (cmd == "list")
+    } else if (cmd == "list" || cmd == "ls")
     {
         for (auto const&[key, val] : functions)
         {
@@ -131,7 +144,7 @@ int readCommand(const string &cmd)
                 cout << val << endl;
         }
         return 0;
-    } else if (cmd == "derivative")
+    } else if (cmd == "derivative" || cmd == "diff")
     {
         string args;
         string fun;
@@ -211,6 +224,7 @@ int readCommand(const string &cmd)
         {
             cout << e.what() << endl;
         }
+
         return 0;
     } else if (cmd == "draw")
     {

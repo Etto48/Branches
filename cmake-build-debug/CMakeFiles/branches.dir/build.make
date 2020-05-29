@@ -58,10 +58,10 @@ include CMakeFiles\branches.dir\progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles\branches.dir\flags.make
 
-CMakeFiles\branches.dir\res.rc.res: CMakeFiles\branches.dir\flags.make
-CMakeFiles\branches.dir\res.rc.res: ..\res.rc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:\OneDrive - University of Pisa\Shared Projects\branches\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building RC object CMakeFiles/branches.dir/res.rc.res"
-	"C:\PROGRA~2\Windows Kits\10\bin\10.0.18362.0\x86\rc.exe" $(RC_DEFINES) $(RC_INCLUDES) $(RC_FLAGS) /fo CMakeFiles\branches.dir\res.rc.res "D:\OneDrive - University of Pisa\Shared Projects\branches\res.rc"
+CMakeFiles\branches.dir\resources\res.rc.res: CMakeFiles\branches.dir\flags.make
+CMakeFiles\branches.dir\resources\res.rc.res: ..\resources\res.rc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:\OneDrive - University of Pisa\Shared Projects\branches\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building RC object CMakeFiles/branches.dir/resources/res.rc.res"
+	"C:\PROGRA~2\Windows Kits\10\bin\10.0.18362.0\x86\rc.exe" $(RC_DEFINES) $(RC_INCLUDES) $(RC_FLAGS) /fo CMakeFiles\branches.dir\resources\res.rc.res "D:\OneDrive - University of Pisa\Shared Projects\branches\resources\res.rc"
 
 CMakeFiles\branches.dir\main.cpp.obj: CMakeFiles\branches.dir\flags.make
 CMakeFiles\branches.dir\main.cpp.obj: ..\main.cpp
@@ -198,7 +198,7 @@ CMakeFiles\branches.dir\branches_core\exprNode\exprNode.cpp.s: cmake_force
 
 # Object files for target branches
 branches_OBJECTS = \
-"CMakeFiles\branches.dir\res.rc.res" \
+"CMakeFiles\branches.dir\resources\res.rc.res" \
 "CMakeFiles\branches.dir\main.cpp.obj" \
 "CMakeFiles\branches.dir\branches_core\algebraParser\algebraParser.cpp.obj" \
 "CMakeFiles\branches.dir\branches_core\algebra_tools_\algebra_tools_.cpp.obj" \
@@ -210,7 +210,7 @@ branches_OBJECTS = \
 # External object files for target branches
 branches_EXTERNAL_OBJECTS =
 
-branches.exe: CMakeFiles\branches.dir\res.rc.res
+branches.exe: CMakeFiles\branches.dir\resources\res.rc.res
 branches.exe: CMakeFiles\branches.dir\main.cpp.obj
 branches.exe: CMakeFiles\branches.dir\branches_core\algebraParser\algebraParser.cpp.obj
 branches.exe: CMakeFiles\branches.dir\branches_core\algebra_tools_\algebra_tools_.cpp.obj

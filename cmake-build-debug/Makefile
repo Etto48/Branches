@@ -313,14 +313,14 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\main.cpp.s
 .PHONY : main.cpp.s
 
-res.res: res.rc.res
+resources\res.res: resources\res.rc.res
 
-.PHONY : res.res
+.PHONY : resources\res.res
 
 # target to build an object file
-res.rc.res:
-	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\res.rc.res
-.PHONY : res.rc.res
+resources\res.rc.res:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\resources\res.rc.res
+.PHONY : resources\res.rc.res
 
 # Help Target
 help:
@@ -352,7 +352,7 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
-	@echo ... res.res
+	@echo ... resources/res.res
 .PHONY : help
 
 

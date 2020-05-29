@@ -56,23 +56,7 @@ D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/varNode/
 ../branches_core.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
 
-D:/OneDrive - University of Pisa/Shared Projects/branches/graph.h
-Windows.h
--
-branches_core/branches_core.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
-random
--
-
-D:/OneDrive - University of Pisa/Shared Projects/branches/main.cpp
-iostream
--
-win.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/win.h
-graph.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/graph.h
-
-D:/OneDrive - University of Pisa/Shared Projects/branches/win.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/winDraw.h
 Windows.h
 -
 gdiplus.h
@@ -85,6 +69,30 @@ map
 -
 string
 -
-branches_core/branches_core.h
+../branches_core/branches_core.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/winStudy.h
+Windows.h
+-
+gdiplus.h
+-
+objidl.h
+-
+vector
+-
+map
+-
+string
+-
+../branches_core/branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/main.cpp
+iostream
+-
+graphics/winDraw.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/winDraw.h
+graphics/winStudy.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/winStudy.h
 
