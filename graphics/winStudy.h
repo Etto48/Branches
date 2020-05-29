@@ -27,12 +27,14 @@ namespace bStudy
     double zoom;
     bool drawAxis;
     bool drawGrid;
+    HWND lastHandle;
 }
 
 VOID OnPaintS(HDC hdc)
 {
     Graphics graphics(hdc);
 //set fromX=-1 for 2/3 screen (vertical), fromY=-1 for 2/3 screen (horizontal), leave to 0 for max size in that direction
+    try
     {
 
 
@@ -291,24 +293,11 @@ VOID OnPaintS(HDC hdc)
             auto r = RectF(REAL(from + bStudy::fromX), REAL(bStudy::fromY), REAL(to - from), REAL(bStudy::sizeY));
             graphics.FillRectangle(&neBrush, r);
         }
-        /*
-        if(drawText)
-        {
-            //draw text
-            char *str = new char[6 + function.length()];
-            std::string textToDraw = "f(x)=" + function;
 
-            strncpy_s(str, 6 + function.length(), textToDraw.c_str(), 6 + function.length());
-
-
-            int len = int(7 * (textToDraw.length()));
-            auto text = RECT({10 + bStudy::fromX, 10 + bStudy::fromY, len + bStudy::fromX, 24 + bStudy::fromX});
-            DrawTextA(device_context, LPCSTR(str), int(6 + function.length()), &text, DT_LEFT);
-
-
-        }*/
-        //delete [] apv;
-        //ReleaseDC(console_handle, device_context);
+    } catch (algebra_tools_::except &e)
+    {
+        std::cout << e.what() << std::endl;
+        DestroyWindow(bStudy::lastHandle);
     }
 
 }
@@ -338,6 +327,7 @@ INT WINAPI drawStudy(
     bStudy::zoom = zoom;
     bStudy::drawAxis = drawAxis;
     bStudy::drawGrid = drawGrid;
+
 
     HWND hWnd;
     MSG msg;
@@ -377,6 +367,7 @@ INT WINAPI drawStudy(
     ShowWindow(hWnd, iCmdShow);
     UpdateWindow(hWnd);
 
+
     while (GetMessage(&msg, nullptr, 0, 0))
     {
         TranslateMessage(&msg);
@@ -398,6 +389,7 @@ LRESULT CALLBACK WndProcS(HWND hWnd, UINT message,
     {
         case WM_PAINT:
             hdc = BeginPaint(hWnd, &ps);
+            bStudy::lastHandle = hWnd;
             OnPaintS(hdc);
             EndPaint(hWnd, &ps);
             return 0;

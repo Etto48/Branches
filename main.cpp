@@ -216,14 +216,9 @@ int readCommand(const string &cmd)
         cin >> args;
         if (functions.contains(args))
             args = functions[args];
-        try
-        {
-            drawStudy(args, -1, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
-        }
-        catch (algebra_tools_::except &e)
-        {
-            cout << e.what() << endl;
-        }
+
+        drawStudy(args, -1, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
+
 
         return 0;
     } else if (cmd == "draw")
@@ -244,13 +239,8 @@ int readCommand(const string &cmd)
         {
             toDraw = {{"f", args}};
         }
-        try
-        {
-            drawGraph(toDraw, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
-        } catch (algebra_tools_::except &e)
-        {
-            cout << e.what() << endl;
-        }
+
+        drawGraph(toDraw, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
 
         return 0;
     }

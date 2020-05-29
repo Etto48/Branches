@@ -28,12 +28,14 @@ namespace bDraw
     double zoom;
     bool drawAxis;
     bool drawGrid;
+    HWND lastHandle;
 }
 
 VOID OnPaint(HDC hdc)
 {
     Graphics graphics(hdc);
 //set fromX=-1 for 2/3 screen (vertical), fromY=-1 for 2/3 screen (horizontal), leave to 0 for max size in that direction
+    try
     {
 
 
@@ -197,6 +199,10 @@ VOID OnPaint(HDC hdc)
         }*/
         //delete [] apv;
         //ReleaseDC(console_handle, device_context);
+    } catch (algebra_tools_::except &e)
+    {
+        std::cout << e.what() << std::endl;
+        DestroyWindow(bDraw::lastHandle);
     }
 
 }
@@ -272,8 +278,10 @@ INT WINAPI drawGraph(
     ShowWindow(hWnd, iCmdShow);
     UpdateWindow(hWnd);
 
+
     while (GetMessage(&msg, nullptr, 0, 0))
     {
+
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
@@ -294,6 +302,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
     {
         case WM_PAINT:
             hdc = BeginPaint(hWnd, &ps);
+            bDraw::lastHandle = hWnd;
             OnPaint(hdc);
             EndPaint(hWnd, &ps);
             return 0;
