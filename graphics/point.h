@@ -34,8 +34,8 @@ public:
     explicit p2d(const p3d &p, int rot = 0)
     {
         //isometric dumb
-        double pi = acos(0);
-        double a = rot / 90.0 * pi;
+        double pi = 2 * acos(0);
+        double a = rot / 180.0 * pi;
         p3d pRot = p;
 
         //rotation around z
@@ -44,8 +44,8 @@ public:
         pRot.z = p.z;
 
 
-        x = -pRot.x * cos(pi / 6) + pRot.y * cos(pi / 6);
-        y = -pRot.x * sin(pi / 6) - pRot.y * sin(pi / 6) + pRot.z;
+        x = (-pRot.x + pRot.y) * cos(pi / 12);
+        y = -(pRot.x + pRot.y) * sin(pi / 12) + pRot.z;
 
     }
 

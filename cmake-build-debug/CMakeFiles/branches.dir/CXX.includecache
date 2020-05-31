@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraNode/algebraNode.cpp
-../algebraParser/algebraParser.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h
-
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraNode/algebraNode.h
 ../branches_core.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h

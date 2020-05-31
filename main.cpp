@@ -41,6 +41,9 @@ int readCommand(const string &cmd)
                 "\twill draw the function defined in the args\n"
                 "\tyou can use the name of a stored function to draw it\n"
                 "\t(function must be R->R, with x as the independent variable)\n"
+                "draw3d <function>|<name>\n"
+                "\tsame as draw command but the domain is assumed to be R^2,\n"
+                "\tso a 3d graph is shown (rotating by default, see set rotating)\n"
                 "study <function>|<name>:\n"
                 "\tdraws the study of the required function or stored function\n"
                 "\thighlights maxima, minima and inflections, shows a different background\n"
@@ -59,6 +62,9 @@ int readCommand(const string &cmd)
                 "\tif the name of a stored function is provided instead, it prints\n"
                 "\tthe derivative of the stored function\n"
                 "\tif the optional argument store is provided, it will store the derivative\n"
+                "partial <variable> [store] <function>|<name>\n"
+                "\tsame as derivative command but does a partial derivative on\n"
+                "\tthe chosen variable\n"
                 "set <parameter> <value>\n"
                 "\tsets the parameter to the given value\n"
                 "\tparameters:\n"
@@ -70,13 +76,15 @@ int readCommand(const string &cmd)
                 "\t\t\tchoose if to draw the grid\n"
                 "\t\tdrawAxis (bool):\n"
                 "\t\t\tchoose if to draw the x and y axis\n"
+                "\t\trotating (bool):\n"
+                "\t\t\tchoose if the draw3d result is rotating\n"
                 //"\t\tdrawText (bool):(currently unavailable)\n"
                 //"\t\t\tchoose if to draw the function in the left high corner\n"
                 //"\tuse \"default\" as value to reset the value\n"
                 "exit:\n"
                 "\twill close the program\n"
                 "\n"
-                "credits to Ettore Ricci and Stackoverflow\n";
+                "credits to Ettore Ricci\n";
         return 0;
     } else if (cmd == "set")
     {
