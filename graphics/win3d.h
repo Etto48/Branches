@@ -81,9 +81,16 @@ VOID OnPaint3d(HDC hdc)
 
                 apvsA[i][j] = PointF(intoFrame(p2d(p3d(a, b, f.evaluate({{"x", a},
                                                                          {"y", b}})), b3d::rot), sizeX, sizeY, scale));
-                apvsB[i][j] = PointF(intoFrame(p2d(p3d(b, a, f.evaluate({{"x", b},
-                                                                         {"y", a}})), b3d::rot), sizeX, sizeY, scale));
+                //apvsB[i][j] = PointF(intoFrame(p2d(p3d(b, a, f.evaluate({{"x", b},
+                //                                                         {"y", a}})), b3d::rot), sizeX, sizeY, scale));
 
+            }
+        }
+        for (int i = 0; i < samples; i++)
+        {
+            for (int j = 0; j < samples; j++)
+            {
+                apvsB[j][i] = apvsA[i][j];
             }
         }
 
@@ -215,7 +222,7 @@ INT WINAPI draw3d(
     {
         SetTimer(hWnd,             // handle to main window
                  1,            // timer identifier
-                 200,                 // 1-second interval
+                 100,                 // 0.1-second interval
                  (TIMERPROC) nullptr);     // no timer callback
     }
     while (GetMessage(&msg, nullptr, 0, 0))
