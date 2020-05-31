@@ -62,6 +62,8 @@ CMakeFiles\branches.dir\main.cpp.obj: ..\branches_core\branches_core.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\branches_core\exprNode\exprNode.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\branches_core\funcNode\funcNode.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\branches_core\varNode\varNode.h
+CMakeFiles\branches.dir\main.cpp.obj: ..\graphics\point.h
+CMakeFiles\branches.dir\main.cpp.obj: ..\graphics\win3d.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\graphics\winDraw.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\graphics\winStudy.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\main.cpp

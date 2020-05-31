@@ -1,8 +1,12 @@
 #include <iostream>
 #include "graphics/winDraw.h"
 #include "graphics/winStudy.h"
+#include "graphics/win3d.h"
+#include <thread>
 
 using namespace std;
+
+int main();
 
 int readCommand(const string &cmd)
 {
@@ -10,6 +14,7 @@ int readCommand(const string &cmd)
     static int precision = 0;
     static bool drawGrid = true;
     static bool drawAxis = true;
+    static bool rotating = true;
     //static bool drawText = false;
     static map<string, string> functions;
     if (cmd == "exit")
@@ -106,6 +111,13 @@ int readCommand(const string &cmd)
                 drawAxis = true;
             else if (tmp == "false")
                 drawAxis = false;
+        } else if (args == "rotating")
+        {
+            cin >> tmp;
+            if (tmp == "true" || tmp == "default")
+                rotating = true;
+            else if (tmp == "false")
+                rotating = false;
         }
         /*else if (args == "drawText")
         {
@@ -177,6 +189,40 @@ int readCommand(const string &cmd)
                 cout << "(" << fun << ")'=" << der << endl;
         }
         return 0;
+    } else if (cmd == "partial")
+    {
+        string var;
+        string args;
+        string fun;
+        bool doStore;
+        cin >> var >> args;
+        if (args == "store")
+        {
+            cin >> fun;
+            doStore = true;
+        } else
+        {
+            fun = args;
+            doStore = false;
+        }
+        if (functions.contains(fun))
+        {
+            auto f = algebraParser(functions[fun]);
+            string der = f.derivative(var);
+            if (doStore)
+                functions.insert({fun + var, der});
+            else
+                cout << fun << var + "=" << der << endl;
+        } else
+        {
+            auto f = algebraParser(fun);
+            string der = f.derivative(var);
+            if (doStore)
+                functions.insert({"d" + var + "(" + fun + ")", der});
+            else
+                cout << "d" + var + "(" << fun << ")=" << der << endl;
+        }
+        return 0;
     } else if (cmd == "simplify")
     {
         string args;
@@ -243,31 +289,38 @@ int readCommand(const string &cmd)
         drawGraph(toDraw, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
 
         return 0;
+    } else if (cmd == "draw3d")
+    {
+        string args;
+        cin >> args;
+        string toDraw;
+        if (functions.contains(args))
+        {
+            toDraw = functions[args];
+        } else
+        {
+            toDraw = args;
+        }
+        draw3d(toDraw, precision, zoom, drawAxis, drawGrid, rotating);
+        return 0;
     }
     return -1;
 }
 
-int main(int argc, char **argv)
+int main()
 {
     string operation;
-    if (argc >= 2)
+    cout << "Welcome to BRANCHES\n"
+            "a simple graphing terminal\n"
+            "by Ettore Ricci\n\n"
+            "type \"help\" for a list of all the available commands\n\n";
+    int ret = 0;
+    while (ret != 1)
     {
-        operation = argv[1];
-        cin.ignore();
-        cin.ignore();
-    } else
-    {
-        cout << "Welcome to BRANCHES\n"
-                "a simple graphing terminal\n"
-                "by Ettore Ricci\n\n"
-                "type \"help\" for a list of all the available commands\n\n";
-        int ret = 0;
-        while (ret != 1)
-        {
-            cout << (ret == 0 ? ">>" : "x>");
-            cin >> operation;
-            ret = readCommand(operation);
-        }
+        cout << (ret == 0 ? ">>" : "x>");
+        cin >> operation;
+        ret = readCommand(operation);
     }
+
     return 0;
 }
