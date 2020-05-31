@@ -98,51 +98,45 @@ VOID OnPaint3d(HDC hdc)
         double dA = 3.5;
 
         Pen Gr(Color(150, 150, 150), 2);
-        //if(!b3d::rotating)
-        {
-            graph->DrawLine(&Gr, PointF(intoFrame(p2d(p3d(-dA, -dA, -dA), b3d::rot), sizeX, sizeY, scale)),
-                            PointF(intoFrame(p2d(p3d(dA, -dA, -dA), b3d::rot), sizeX, sizeY, scale)));
-            graph->DrawLine(&Gr, PointF(intoFrame(p2d(p3d(-dA, -dA, -dA), b3d::rot), sizeX, sizeY, scale)),
-                            PointF(intoFrame(p2d(p3d(-dA, dA, -dA), b3d::rot), sizeX, sizeY, scale)));
-            graph->DrawLine(&Gr, PointF(intoFrame(p2d(p3d(-dA, dA, -dA), b3d::rot), sizeX, sizeY, scale)),
-                            PointF(intoFrame(p2d(p3d(dA, dA, -dA), b3d::rot), sizeX, sizeY, scale)));
-            graph->DrawLine(&Gr, PointF(intoFrame(p2d(p3d(dA, -dA, -dA), b3d::rot), sizeX, sizeY, scale)),
-                            PointF(intoFrame(p2d(p3d(dA, dA, -dA), b3d::rot), sizeX, sizeY, scale)));
-        }
+        PointF no_no_squareHigh[] = {PointF(intoFrame(p2d(p3d(-dA, -dA, dA), b3d::rot), sizeX, sizeY, scale)),
+                                     PointF(intoFrame(p2d(p3d(dA, -dA, dA), b3d::rot), sizeX, sizeY, scale)),
+                                     PointF(intoFrame(p2d(p3d(dA, dA, dA), b3d::rot), sizeX, sizeY, scale)),
+                                     PointF(intoFrame(p2d(p3d(-dA, dA, dA), b3d::rot), sizeX, sizeY, scale))};
+        PointF no_no_squareLow[] = {PointF(intoFrame(p2d(p3d(-dA, -dA, -dA), b3d::rot), sizeX, sizeY, scale)),
+                                    PointF(intoFrame(p2d(p3d(dA, -dA, -dA), b3d::rot), sizeX, sizeY, scale)),
+                                    PointF(intoFrame(p2d(p3d(dA, dA, -dA), b3d::rot), sizeX, sizeY, scale)),
+                                    PointF(intoFrame(p2d(p3d(-dA, dA, -dA), b3d::rot), sizeX, sizeY, scale))};
 
+        ///draw lower square
+        graph->DrawPolygon(&Gr, no_no_squareLow, 4);
 
         ///draw graph
         Pen pA(Color(255, 0, 255), 2);
         Pen pB(Color(0, 255, 255), 2);
         for (int i = 0; i < samples; i++)
         {
-            graph->DrawLines(&pA, apvsA[i], samples);
-            graph->DrawLines(&pB, apvsB[i], samples);
+            graph->DrawCurve(&pA, apvsA[i], samples);
+            graph->DrawCurve(&pB, apvsB[i], samples);
             ///draw axis
-            if (b3d::drawAxis && i == samples / 2 && !b3d::rotating)
-            {
-                Pen R(Color(255, 0, 0), 4);
-                graph->DrawLine(&R, PointF(intoFrame(p2d(p3d(0, 0, 0), b3d::rot), sizeX, sizeY, scale)),
-                                PointF(intoFrame(p2d(p3d(dA, 0, 0), b3d::rot), sizeX, sizeY, scale)));
-                Pen G(Color(0, 255, 0), 4);
-                graph->DrawLine(&G, PointF(intoFrame(p2d(p3d(0, 0, 0), b3d::rot), sizeX, sizeY, scale)),
-                                PointF(intoFrame(p2d(p3d(0, dA, 0), b3d::rot), sizeX, sizeY, scale)));
-                Pen B(Color(0, 0, 255), 4);
-                graph->DrawLine(&B, PointF(intoFrame(p2d(p3d(0, 0, 0), b3d::rot), sizeX, sizeY, scale)),
-                                PointF(intoFrame(p2d(p3d(0, 0, dA), b3d::rot), sizeX, sizeY, scale)));
-            }
+
         }
-        //if(!b3d::rotating)
-        {
-            graph->DrawLine(&Gr, PointF(intoFrame(p2d(p3d(-dA, -dA, dA), b3d::rot), sizeX, sizeY, scale)),
-                            PointF(intoFrame(p2d(p3d(dA, -dA, dA), b3d::rot), sizeX, sizeY, scale)));
-            graph->DrawLine(&Gr, PointF(intoFrame(p2d(p3d(-dA, -dA, dA), b3d::rot), sizeX, sizeY, scale)),
-                            PointF(intoFrame(p2d(p3d(-dA, dA, dA), b3d::rot), sizeX, sizeY, scale)));
-            graph->DrawLine(&Gr, PointF(intoFrame(p2d(p3d(-dA, dA, dA), b3d::rot), sizeX, sizeY, scale)),
-                            PointF(intoFrame(p2d(p3d(dA, dA, dA), b3d::rot), sizeX, sizeY, scale)));
-            graph->DrawLine(&Gr, PointF(intoFrame(p2d(p3d(dA, -dA, dA), b3d::rot), sizeX, sizeY, scale)),
-                            PointF(intoFrame(p2d(p3d(dA, dA, dA), b3d::rot), sizeX, sizeY, scale)));
-        }
+
+        double rO = 4;
+        ///draw origin
+        Pen R(Color(255, 0, 0), 4);
+        graph->DrawLine(&R, PointF(intoFrame(p2d(p3d(0, 0, 0), b3d::rot), sizeX, sizeY, scale)),
+                        PointF(intoFrame(p2d(p3d(dA / 2, 0, 0), b3d::rot), sizeX, sizeY, scale)));
+        Pen G(Color(0, 255, 0), 4);
+        graph->DrawLine(&G, PointF(intoFrame(p2d(p3d(0, 0, 0), b3d::rot), sizeX, sizeY, scale)),
+                        PointF(intoFrame(p2d(p3d(0, dA / 2, 0), b3d::rot), sizeX, sizeY, scale)));
+        Pen B(Color(0, 0, 255), 4);
+        graph->DrawLine(&B, PointF(intoFrame(p2d(p3d(0, 0, 0), b3d::rot), sizeX, sizeY, scale)),
+                        PointF(intoFrame(p2d(p3d(0, 0, dA / 2), b3d::rot), sizeX, sizeY, scale)));
+        auto W = SolidBrush(Color(255, 255, 255));
+        graph->FillEllipse(&W, REAL(sizeX / 2.0 - rO), REAL(sizeY / 2.0 - rO), REAL(2 * rO), REAL(2 * rO));
+
+        ///draw higher square
+        graph->DrawPolygon(&Gr, no_no_squareHigh, 4);
 
         graphics.DrawImage(&bmp, 0, 0, sizeX, sizeY);
         for (int i = 0; i < samples; i++)
