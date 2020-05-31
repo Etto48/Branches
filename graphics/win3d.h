@@ -105,6 +105,7 @@ VOID OnPaint3d(HDC hdc)
                             PointF(intoFrame(p2d(p3d(dA, dA, -dA), b3d::rot), sizeX, sizeY, scale)));
         }
 
+
         ///draw graph
         Pen pA(Color(255, 0, 255), 2);
         Pen pB(Color(0, 255, 255), 2);
