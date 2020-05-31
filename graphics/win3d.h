@@ -14,8 +14,6 @@
 #include "../branches_core/branches_core.h"
 #include "point.h"
 
-#define SECOND_TIMER 1
-
 #pragma comment (lib, "Gdiplus.lib")
 using namespace Gdiplus;
 
@@ -145,6 +143,7 @@ VOID OnPaint3d(HDC hdc)
             delete[] apvsA[i];
             delete[] apvsB[i];
         }
+        delete graph;
     } catch (algebra_tools_::except &e)
     {
         std::cout << e.what() << std::endl;
@@ -216,7 +215,7 @@ INT WINAPI draw3d(
     {
         SetTimer(hWnd,             // handle to main window
                  1,            // timer identifier
-                 500,                 // 1-second interval
+                 200,                 // 1-second interval
                  (TIMERPROC) nullptr);     // no timer callback
     }
     while (GetMessage(&msg, nullptr, 0, 0))

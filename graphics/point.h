@@ -35,7 +35,7 @@ public:
     {
         //isometric dumb
         double pi = acos(0);
-        double a = rot / 180.0 * pi;
+        double a = rot / 90.0 * pi;
         p3d pRot = p;
 
         //rotation around z
