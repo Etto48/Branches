@@ -17,23 +17,22 @@ exprNode::exprNode(string expr)
 
     int depth = 0;
     unsigned fmeo = -1;
-    unsigned i;
     bool found = false;
     for (auto &pop: algebraParser::ops())
     {
-        i = 0;
-        for (auto &c : expr)///find first most extern operator
+        for (int j = int(expr.size()) - 1; j >= 0; j--)///find first most extern operator
         {
-            if (c == '(')depth += 1;
-            else if (c == ')')depth -= 1;
+            auto &c = expr[j];
+            //cout<<"C:"<<c<<endl;
+            if (c == ')')depth += 1;
+            else if (c == '(')depth -= 1;
             else if (depth == 0 && pop.find(c) != string::npos)
             {
                 //cout<<"found operator "<<c<<" in "<<expr<<endl;
-                fmeo = i;
+                fmeo = j;
                 found = true;
                 break;
             }
-            i += 1;
         }
         if (found)
             break;
@@ -48,6 +47,7 @@ exprNode::exprNode(string expr)
 
     left = expr.substr(0, fmeo);
     right = expr.substr(fmeo + 1, expr.length() - fmeo - 1);
+    //cout<<"L: "<<left<<" R: "<<right<<endl;
 
     op = expr.substr(fmeo, 1);
 
