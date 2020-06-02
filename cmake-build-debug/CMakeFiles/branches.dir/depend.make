@@ -55,6 +55,16 @@ CMakeFiles\branches.dir\branches_core\varNode\varNode.cpp.obj: ..\branches_core\
 CMakeFiles\branches.dir\branches_core\varNode\varNode.cpp.obj: ..\branches_core\varNode\varNode.cpp
 CMakeFiles\branches.dir\branches_core\varNode\varNode.cpp.obj: ..\branches_core\varNode\varNode.h
 
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: ..\branches_core\algebraNode\algebraNode.h
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: ..\branches_core\algebraParser\algebraParser.h
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: ..\branches_core\algebra_tools_\algebra_tools_.h
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: ..\branches_core\branches_core.h
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: ..\branches_core\exprNode\exprNode.h
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: ..\branches_core\funcNode\funcNode.h
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: ..\branches_core\varNode\varNode.h
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: ..\branches_core\vectorParser\vectorParser.cpp
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: ..\branches_core\vectorParser\vectorParser.h
+
 CMakeFiles\branches.dir\main.cpp.obj: ..\branches_core\algebraNode\algebraNode.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\branches_core\algebraParser\algebraParser.h
 CMakeFiles\branches.dir\main.cpp.obj: ..\branches_core\algebra_tools_\algebra_tools_.h
