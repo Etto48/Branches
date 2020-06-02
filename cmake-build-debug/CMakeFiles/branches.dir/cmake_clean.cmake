@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/branches.dir/branches_core/exprNode/exprNode.cpp.obj"
   "CMakeFiles/branches.dir/branches_core/funcNode/funcNode.cpp.obj"
   "CMakeFiles/branches.dir/branches_core/varNode/varNode.cpp.obj"
+  "CMakeFiles/branches.dir/branches_core/vectorParser/vectorParser.cpp.obj"
   "CMakeFiles/branches.dir/main.cpp.obj"
   "CMakeFiles/branches.dir/resources/res.rc.res"
   "branches.exe"

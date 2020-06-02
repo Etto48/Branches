@@ -196,6 +196,25 @@ CMakeFiles\branches.dir\branches_core\exprNode\exprNode.cpp.s: cmake_force
  /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\branches.dir\branches_core\exprNode\exprNode.cpp.s /c "D:\OneDrive - University of Pisa\Shared Projects\branches\branches_core\exprNode\exprNode.cpp"
 <<
 
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: CMakeFiles\branches.dir\flags.make
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj: ..\branches_core\vectorParser\vectorParser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:\OneDrive - University of Pisa\Shared Projects\branches\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/branches.dir/branches_core/vectorParser/vectorParser.cpp.obj"
+	"D:\Program Files\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\bin\Hostx86\x86\cl.exe" @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj /FdCMakeFiles\branches.dir\ /FS -c "D:\OneDrive - University of Pisa\Shared Projects\branches\branches_core\vectorParser\vectorParser.cpp"
+<<
+
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/branches.dir/branches_core/vectorParser/vectorParser.cpp.i"
+	"D:\Program Files\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\bin\Hostx86\x86\cl.exe" > CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "D:\OneDrive - University of Pisa\Shared Projects\branches\branches_core\vectorParser\vectorParser.cpp"
+<<
+
+CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/branches.dir/branches_core/vectorParser/vectorParser.cpp.s"
+	"D:\Program Files\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\bin\Hostx86\x86\cl.exe" @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.s /c "D:\OneDrive - University of Pisa\Shared Projects\branches\branches_core\vectorParser\vectorParser.cpp"
+<<
+
 # Object files for target branches
 branches_OBJECTS = \
 "CMakeFiles\branches.dir\resources\res.rc.res" \
@@ -205,7 +224,8 @@ branches_OBJECTS = \
 "CMakeFiles\branches.dir\branches_core\varNode\varNode.cpp.obj" \
 "CMakeFiles\branches.dir\branches_core\algebraNode\algebraNode.cpp.obj" \
 "CMakeFiles\branches.dir\branches_core\funcNode\funcNode.cpp.obj" \
-"CMakeFiles\branches.dir\branches_core\exprNode\exprNode.cpp.obj"
+"CMakeFiles\branches.dir\branches_core\exprNode\exprNode.cpp.obj" \
+"CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj"
 
 # External object files for target branches
 branches_EXTERNAL_OBJECTS =
@@ -218,9 +238,10 @@ branches.exe: CMakeFiles\branches.dir\branches_core\varNode\varNode.cpp.obj
 branches.exe: CMakeFiles\branches.dir\branches_core\algebraNode\algebraNode.cpp.obj
 branches.exe: CMakeFiles\branches.dir\branches_core\funcNode\funcNode.cpp.obj
 branches.exe: CMakeFiles\branches.dir\branches_core\exprNode\exprNode.cpp.obj
+branches.exe: CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj
 branches.exe: CMakeFiles\branches.dir\build.make
 branches.exe: CMakeFiles\branches.dir\objects1.rsp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="D:\OneDrive - University of Pisa\Shared Projects\branches\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable branches.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="D:\OneDrive - University of Pisa\Shared Projects\branches\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable branches.exe"
 	C:\Users\the_E\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.7223.86\bin\cmake\win\bin\cmake.exe -E vs_link_exe --intdir=CMakeFiles\branches.dir --rc="C:\PROGRA~2\Windows Kits\10\bin\10.0.18362.0\x86\rc.exe" --mt="C:\PROGRA~2\Windows Kits\10\bin\10.0.18362.0\x86\mt.exe" --manifests  -- "D:\Program Files\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\bin\Hostx86\x86\link.exe" /nologo @CMakeFiles\branches.dir\objects1.rsp @<<
  /out:branches.exe /implib:branches.lib /pdb:"D:\OneDrive - University of Pisa\Shared Projects\branches\cmake-build-debug\branches.pdb" /version:0.0  /machine:X86 /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
 <<

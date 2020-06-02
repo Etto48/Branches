@@ -61,8 +61,8 @@ VOID OnPaint3d(HDC hdc)
         int samples = b3d::density * (sizeX + sizeY) / 80;
         auto f = algebraParser(b3d::function);
         double scale = b3d::zoom * double(sizeX + sizeY) / 30.0;
+        double dA = 3.5;
         double d = (sizeX + sizeY) / (4.0 * samples);
-
 
 
         ///calculate graph points
@@ -94,8 +94,6 @@ VOID OnPaint3d(HDC hdc)
             }
         }
 
-
-        double dA = 3.5;
 
         Pen Gr(Color(150, 150, 150), 2);
         PointF no_no_squareHigh[] = {PointF(intoFrame(p2d(p3d(-dA, -dA, dA), b3d::rot), sizeX, sizeY, scale)),

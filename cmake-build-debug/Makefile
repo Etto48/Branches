@@ -286,6 +286,33 @@ branches_core\varNode\varNode.cpp.s:
 	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\varNode\varNode.cpp.s
 .PHONY : branches_core\varNode\varNode.cpp.s
 
+branches_core\vectorParser\vectorParser.obj: branches_core\vectorParser\vectorParser.cpp.obj
+
+.PHONY : branches_core\vectorParser\vectorParser.obj
+
+# target to build an object file
+branches_core\vectorParser\vectorParser.cpp.obj:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.obj
+.PHONY : branches_core\vectorParser\vectorParser.cpp.obj
+
+branches_core\vectorParser\vectorParser.i: branches_core\vectorParser\vectorParser.cpp.i
+
+.PHONY : branches_core\vectorParser\vectorParser.i
+
+# target to preprocess a source file
+branches_core\vectorParser\vectorParser.cpp.i:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.i
+.PHONY : branches_core\vectorParser\vectorParser.cpp.i
+
+branches_core\vectorParser\vectorParser.s: branches_core\vectorParser\vectorParser.cpp.s
+
+.PHONY : branches_core\vectorParser\vectorParser.s
+
+# target to generate assembly for a file
+branches_core\vectorParser\vectorParser.cpp.s:
+	$(MAKE) -f CMakeFiles\branches.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\branches.dir\branches_core\vectorParser\vectorParser.cpp.s
+.PHONY : branches_core\vectorParser\vectorParser.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -349,6 +376,9 @@ help:
 	@echo ... branches_core/varNode/varNode.obj
 	@echo ... branches_core/varNode/varNode.i
 	@echo ... branches_core/varNode/varNode.s
+	@echo ... branches_core/vectorParser/vectorParser.obj
+	@echo ... branches_core/vectorParser/vectorParser.i
+	@echo ... branches_core/vectorParser/vectorParser.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

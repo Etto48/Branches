@@ -35,7 +35,7 @@ algebraParser::~algebraParser()
 
 std::string algebraParser::derivative(const string &direction)
 {
-    return algebraParser(root->derivative(direction)).simplify();
+    return algebraParser(root->derivative(algebraParser(direction).simplify())).simplify();
     //return root->derivative(direction);
 }
 

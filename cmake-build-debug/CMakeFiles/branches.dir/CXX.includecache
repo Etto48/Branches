@@ -44,10 +44,6 @@ D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/exprNode
 funcNode/funcNode.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/funcNode/funcNode.h
 
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/exprNode/exprNode.cpp
-../algebraParser/algebraParser.h
-D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/algebraParser/algebraParser.h
-
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/exprNode/exprNode.h
 ../branches_core.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
@@ -59,4 +55,70 @@ D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/varNode/varNode.h
 ../branches_core.h
 D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/point.h
+cmath
+-
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/win3d.h
+Windows.h
+-
+gdiplus.h
+-
+objidl.h
+-
+vector
+-
+map
+-
+string
+-
+../branches_core/branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+point.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/point.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/winDraw.h
+Windows.h
+-
+gdiplus.h
+-
+objidl.h
+-
+vector
+-
+map
+-
+string
+-
+../branches_core/branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/winStudy.h
+Windows.h
+-
+gdiplus.h
+-
+objidl.h
+-
+vector
+-
+map
+-
+string
+-
+../branches_core/branches_core.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/branches_core/branches_core.h
+
+D:/OneDrive - University of Pisa/Shared Projects/branches/main.cpp
+iostream
+-
+graphics/winDraw.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/winDraw.h
+graphics/winStudy.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/winStudy.h
+graphics/win3d.h
+D:/OneDrive - University of Pisa/Shared Projects/branches/graphics/win3d.h
+thread
+-
 

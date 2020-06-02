@@ -14,6 +14,8 @@
 
 class algebraParser;
 
+class vectorParser;
+
 class algebraNode;
 
 class varNode;
