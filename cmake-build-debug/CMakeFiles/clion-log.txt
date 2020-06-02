@@ -1,4 +1,0 @@
-C:\Users\the_E\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.7223.86\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - NMake Makefiles" "D:\OneDrive - University of Pisa\Shared Projects\branches"
--- Configuring done
--- Generating done
--- Build files have been written to: D:/OneDrive - University of Pisa/Shared Projects/branches/cmake-build-debug
