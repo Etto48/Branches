@@ -4,7 +4,7 @@
 
 #ifndef BRANCHES_WIN3D_H
 #define BRANCHES_WIN3D_H
-
+#define FPS 60
 #include <Windows.h>
 #include <gdiplus.h>
 #include <objidl.h>
@@ -27,6 +27,7 @@ namespace b3d
     HWND lastHandle;
     int rot;
     bool rotating;
+    algebraParser *f;
 }
 
 
@@ -59,7 +60,7 @@ VOID OnPaint3d(HDC hdc)
 
         if (b3d::density == 0)b3d::density = 1;
         int samples = b3d::density * (sizeX + sizeY) / 80;
-        auto f = algebraParser(b3d::function);
+
         double scale = b3d::zoom * double(sizeX + sizeY) / 30.0;
         double dA = 3.5;
         double d = (sizeX + sizeY) / (4.0 * samples);
@@ -79,8 +80,9 @@ VOID OnPaint3d(HDC hdc)
                 auto a = d * (i - samples / 2.0) / scale;
                 auto b = d * (j - samples / 2.0) / scale;
 
-                apvsA[i][j] = PointF(intoFrame(p2d(p3d(a, b, f.evaluate({{"x", a},
-                                                                         {"y", b}})), b3d::rot), sizeX, sizeY, scale));
+                apvsA[i][j] = PointF(intoFrame(p2d(p3d(a, b, b3d::f->evaluate({{"x", a},
+                                                                               {"y", b}})), b3d::rot), sizeX, sizeY,
+                                               scale));
                 //apvsB[i][j] = PointF(intoFrame(p2d(p3d(b, a, f.evaluate({{"x", b},
                 //                                                         {"y", a}})), b3d::rot), sizeX, sizeY, scale));
 
@@ -173,6 +175,8 @@ INT WINAPI draw3d(
     b3d::rot = 0;
     b3d::rotating = rotating;
 
+    b3d::f = new algebraParser(b3d::function);
+
     HWND hWnd;
     MSG msg;
     WNDCLASS wndClass;
@@ -214,7 +218,7 @@ INT WINAPI draw3d(
     {
         SetTimer(hWnd,             // handle to main window
                  1,            // timer identifier
-                 100,                 // 0.1-second interval
+                 1000 / FPS,                 // 0.1-second interval
                  (TIMERPROC) nullptr);     // no timer callback
     }
     while (GetMessage(&msg, nullptr, 0, 0))
@@ -223,6 +227,7 @@ INT WINAPI draw3d(
         DispatchMessage(&msg);
     }
 
+    delete b3d::f;
     GdiplusShutdown(gdiplusToken);
     return msg.wParam;
 }  // WinMain

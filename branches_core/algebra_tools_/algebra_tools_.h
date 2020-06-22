@@ -6,23 +6,11 @@
 #define BRANCHES_ALGEBRA_TOOLS__H
 
 #include "../branches_core.h"
+#include "../algebraNode/algebraNode.h"
+#include "./exception.h"
 
 namespace algebra_tools_
 {
-    class except : public std::exception
-    {
-    protected:
-        std::string s;
-    public:
-        explicit except(std::string ss) : s(std::move(ss))
-        {}
-
-        ~except() noexcept override = default;
-
-        [[nodiscard]] const char *what() const noexcept override
-        { return s.c_str(); }
-    };
-
     void removeWrappingBraces(std::string &expr);
 
     bool isFunction(const std::string &expr);

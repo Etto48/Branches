@@ -23,6 +23,8 @@ public:
     std::string simplify() override;
 
     std::string nodetype() override;
+
+    std::vector<std::string> getVars() override;
 };
 
 #endif //BRANCHES_VARNODE_H

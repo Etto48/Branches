@@ -12,6 +12,7 @@ class funcNode : public algebraNode
 private:
 protected:
     std::string func;
+    algebraNode *arg;
 public:
     explicit funcNode(std::string content);
 
@@ -22,6 +23,10 @@ public:
     std::string simplify() override;
 
     std::string nodetype() override;
+
+    std::vector<std::string> getVars() override;
+
+    ~funcNode();
 };
 
 #endif //BRANCHES_FUNCNODE_H

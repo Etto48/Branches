@@ -3,6 +3,8 @@
 //
 
 #include "../algebraParser/algebraParser.h"
+#include "funcNode.h"
+
 
 using namespace std;
 
@@ -11,7 +13,7 @@ funcNode::funcNode(string content)
 {
     //cout<<"Found function:"<<content<<endl;
     original = content;
-    right = nullptr;
+    arg = nullptr;
 
     for (auto &f : algebraParser::functions())
     {
@@ -23,56 +25,56 @@ funcNode::funcNode(string content)
     }
     content = content.substr(func.length());
     //cout<<"Inner: "<<content<<endl;
-    left = algebra_tools_::newAdequateNode(content);
+    arg = algebra_tools_::newAdequateNode(content);
 
 }
 
 double funcNode::compile(map<string, double> &symMap)
 {
     if (func == "ceil")
-        return ceil(left->compile(symMap));
+        return ceil(arg->compile(symMap));
     if (func == "floor")
-        return floor(left->compile(symMap));
+        return floor(arg->compile(symMap));
     if (func == "ln")
-        return log(left->compile(symMap));
+        return log(arg->compile(symMap));
     if (func == "log2")
-        return log2(left->compile(symMap));
+        return log2(arg->compile(symMap));
     if (func == "log")
-        return log10(left->compile(symMap));
+        return log10(arg->compile(symMap));
     if (func == "exp")
-        return exp(left->compile(symMap));
+        return exp(arg->compile(symMap));
     if (func == "cosh")
-        return cosh(left->compile(symMap));
+        return cosh(arg->compile(symMap));
     if (func == "sinh")
-        return sinh(left->compile(symMap));
+        return sinh(arg->compile(symMap));
     if (func == "tanh")
-        return tanh(left->compile(symMap));
+        return tanh(arg->compile(symMap));
     if (func == "acosh")
-        return acosh(left->compile(symMap));
+        return acosh(arg->compile(symMap));
     if (func == "asinh")
-        return asinh(left->compile(symMap));
+        return asinh(arg->compile(symMap));
     if (func == "atanh")
-        return atanh(left->compile(symMap));
+        return atanh(arg->compile(symMap));
     if (func == "cos")
-        return cos(left->compile(symMap));
+        return cos(arg->compile(symMap));
     if (func == "sin")
-        return sin(left->compile(symMap));
+        return sin(arg->compile(symMap));
     if (func == "tan")
-        return tan(left->compile(symMap));
+        return tan(arg->compile(symMap));
     if (func == "acos")
-        return acos(left->compile(symMap));
+        return acos(arg->compile(symMap));
     if (func == "asin")
-        return asin(left->compile(symMap));
+        return asin(arg->compile(symMap));
     if (func == "atan")
-        return atan(left->compile(symMap));
+        return atan(arg->compile(symMap));
     if (func == "sqrt")
-        return sqrt(left->compile(symMap));
+        return sqrt(arg->compile(symMap));
     if (func == "cbrt")
-        return cbrt(left->compile(symMap));
+        return cbrt(arg->compile(symMap));
     if (func == "abs")
-        return abs(left->compile(symMap));
+        return abs(arg->compile(symMap));
     if (func == "neg")
-        return -(left->compile(symMap));
+        return -(arg->compile(symMap));
     else
         throw algebra_tools_::except("funcNode: Invalid Function Name");
 }
@@ -85,8 +87,8 @@ std::string funcNode::derivative(const string &direction)
         return "0";
     if (func == "ln")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
 
         if (d == "0")
             return "0";
@@ -95,8 +97,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "log2")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -104,8 +106,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "log")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -113,8 +115,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "exp")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -122,8 +124,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "cosh")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -131,8 +133,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "sinh")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -140,8 +142,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "tanh")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -149,8 +151,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "acosh")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -158,8 +160,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "asinh")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -167,8 +169,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "atanh")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -176,8 +178,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "cos")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -185,8 +187,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "sin")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -194,8 +196,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "tan")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -203,8 +205,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "acos")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -212,8 +214,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "asin")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -221,8 +223,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "atan")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -230,8 +232,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "sqrt")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -239,8 +241,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "cbrt")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -248,8 +250,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "abs")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -257,8 +259,8 @@ std::string funcNode::derivative(const string &direction)
     }
     if (func == "neg")
     {
-        auto d = left->derivative(direction);
-        auto a = left->original;
+        auto d = arg->derivative(direction);
+        auto a = arg->original;
         if (d == "0")
             return "0";
         else
@@ -272,14 +274,14 @@ std::string funcNode::simplify()
     string ret;
     try
     {
-        double v = left->compile();
+        double v = arg->compile();
         if (v < 0)
             ret = "neg(" + algebra_tools_::dtos(-v) + ")";
         else
             ret = algebra_tools_::dtos(v);
     } catch (algebra_tools_::except &)
     {
-        ret = left->simplify();
+        ret = arg->simplify();
         algebra_tools_::removeWrappingBraces(ret);
     }
     return func + "(" + ret + ")";
@@ -288,4 +290,14 @@ std::string funcNode::simplify()
 std::string funcNode::nodetype()
 {
     return "func";
+}
+
+std::vector<std::string> funcNode::getVars()
+{
+    return arg->getVars();
+}
+
+funcNode::~funcNode()
+{
+    delete arg;
 }

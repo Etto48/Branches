@@ -11,16 +11,14 @@ class algebraNode
 {
 private:
 protected:
-    algebraNode *left;
-    algebraNode *right;
 public:
     std::string original;
 
-    algebraNode();
+    algebraNode() = default;
 
-    double compile();
+    T compile();
 
-    virtual double compile(std::map<std::string, double> &symMap) = 0;
+    virtual T compile(std::map<std::string, T> &symMap) = 0;
 
     virtual std::string derivative(const std::string &direction) = 0;
 
@@ -28,7 +26,9 @@ public:
 
     virtual std::string nodetype() = 0;
 
-    virtual ~algebraNode();
+    virtual std::vector<std::string> getVars() = 0;
+
+    virtual ~algebraNode() = default;
 };
 
 #endif //BRANCHES_ALGEBRANODE_H

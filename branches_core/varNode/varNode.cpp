@@ -3,6 +3,8 @@
 //
 
 #include "../algebraParser/algebraParser.h"
+#include "varNode.h"
+
 
 using namespace std;
 
@@ -37,4 +39,12 @@ std::string varNode::simplify()
 std::string varNode::nodetype()
 {
     return "var";
+}
+
+std::vector<std::string> varNode::getVars()
+{
+    if (variable)
+        return {value};
+    else
+        return {};
 }

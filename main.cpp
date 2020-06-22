@@ -2,7 +2,7 @@
 #include "graphics/winDraw.h"
 #include "graphics/winStudy.h"
 #include "graphics/win3d.h"
-#include <thread>
+#include "graphics/winPCurve.h"
 
 using namespace std;
 
@@ -15,6 +15,8 @@ int readCommand(const string &cmd)
     static bool drawGrid = true;
     static bool drawAxis = true;
     static bool rotating = true;
+    static double curveFrom = 0;
+    static double curveTo = 1;
     //static bool drawText = false;
     static map<string, string> functions;
     if (cmd == "exit")
@@ -105,6 +107,20 @@ int readCommand(const string &cmd)
                 precision = 0;
             else
                 precision = stoi(tmp);
+        } else if (args == "curveFrom")
+        {
+            cin >> tmp;
+            if (tmp == "default")
+                curveFrom = 0;
+            else
+                curveFrom = stod(tmp);
+        } else if (args == "curveTo")
+        {
+            cin >> tmp;
+            if (tmp == "default")
+                curveTo = 1;
+            else
+                curveTo = stod(tmp);
         } else if (args == "drawGrid")
         {
             cin >> tmp;
@@ -297,6 +313,29 @@ int readCommand(const string &cmd)
         drawGraph(toDraw, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
 
         return 0;
+    } else if (cmd == "drawCurve")
+    {
+        string args;
+        cin >> args;
+        string toDraw;
+        /*if (args == "stored")
+        {
+            if (functions.empty())
+                return -1;
+            else
+                toDraw = functions;
+        }*/
+        if (functions.contains(args))
+        {
+            toDraw = functions[args];
+        } else
+        {
+            toDraw = args;
+        }
+
+        drawPCurve(toDraw, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid, curveFrom, curveTo);
+
+        return 0;
     } else if (cmd == "draw3d")
     {
         string args;
@@ -310,6 +349,21 @@ int readCommand(const string &cmd)
             toDraw = args;
         }
         draw3d(toDraw, precision, zoom, drawAxis, drawGrid, rotating);
+        return 0;
+    } else if (cmd == "field3d")
+    {
+        string args;
+        cin >> args;
+        string toDraw;
+        if (functions.contains(args))
+        {
+            toDraw = functions[args];
+        } else
+        {
+            toDraw = args;
+        }
+        ///wip
+        ///field3d(toDraw, precision, zoom, drawAxis, drawGrid, rotating);
         return 0;
     }
     return -1;

@@ -15,11 +15,15 @@ protected:
 public:
     explicit algebraParser(std::string expr);
 
-    [[maybe_unused]] double evaluate();
+    algebraParser(const algebraParser &old);
 
-    double evaluate(std::map<std::string, double> symMap);
+    [[maybe_unused]] T evaluate();
+
+    T evaluate(std::map<std::string, T> symMap);
 
     std::string simplify();
+
+    std::vector<std::string> getVars();
 
     ~algebraParser();
 
@@ -31,7 +35,7 @@ public:
                 "tanh", "acosh", "asinh", "atanh", "cos", "sin",
                 "tan", "acos", "asin", "atan", "sqrt", "cbrt", "abs", "neg"};
     }//functions
-    static std::map<std::string, double> defaultSymMap()
+    static std::map<std::string, T> defaultSymMap()
     {
         return {{"e",  exp(1)},
                 {"pi", 2 * acos(0)}};

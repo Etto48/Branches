@@ -7,18 +7,8 @@
 using namespace std;
 
 ///algebraNode
-algebraNode::algebraNode()
-{
-    left = right = nullptr;
-}
 
-algebraNode::~algebraNode()
-{
-    delete left;
-    delete right;
-}
-
-double algebraNode::compile()
+T algebraNode::compile()
 {
     auto dummyMap = algebraParser::defaultSymMap();
     return compile(dummyMap);

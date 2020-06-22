@@ -15,13 +15,13 @@ class vectorParser
 private:
     std::vector<algebraParser> comps;
 public:
-    vectorParser(std::string);
+    explicit vectorParser(std::string str);
 
     std::vector<std::string> getVars();
 
     unsigned getDimensions();
 
-    std::vector<double> evaluate(std::map<std::string, std::string> args);
+    DT evaluate(const std::map<std::string, T> &args);
 };
 
 

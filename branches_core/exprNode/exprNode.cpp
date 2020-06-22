@@ -3,6 +3,8 @@
 //
 
 #include "../algebraParser/algebraParser.h"
+#include "exprNode.h"
+
 
 using namespace std;
 
@@ -10,6 +12,7 @@ using namespace std;
 exprNode::exprNode(string expr)
 {
     //cout<<"Found expr:"<<expr<<endl;
+    left = right = nullptr;
 
     original = expr;
 
@@ -40,25 +43,25 @@ exprNode::exprNode(string expr)
     if (fmeo <= 0 || fmeo >= expr.length() - 1)
         throw algebra_tools_::except(
                 "exprNode: Invalid Operator Location");
-    string left, right;
+    string sleft, sright;
 
 
     //super wrong
 
-    left = expr.substr(0, fmeo);
-    right = expr.substr(fmeo + 1, expr.length() - fmeo - 1);
+    sleft = expr.substr(0, fmeo);
+    sright = expr.substr(fmeo + 1, expr.length() - fmeo - 1);
     //cout<<"L: "<<left<<" R: "<<right<<endl;
 
     op = expr.substr(fmeo, 1);
 
-    if (op == "/" && right == "0")
+    if (op == "/" && sright == "0")
         throw algebra_tools_::except("Divide by 0");
 
-    algebraNode::left = algebra_tools_::newAdequateNode(left);
-    algebraNode::right = algebra_tools_::newAdequateNode(right);
+    left = algebra_tools_::newAdequateNode(sleft);
+    right = algebra_tools_::newAdequateNode(sright);
 }
 
-double exprNode::compile(map<string, double> &symMap)
+T exprNode::compile(map<string, T> &symMap)
 {
     if (op == "+")
         return left->compile(symMap) + right->compile(symMap);
@@ -156,7 +159,7 @@ std::string exprNode::simplify()
     string retl, retr;
     try
     {
-        double v = left->compile();
+        T v = left->compile();
         if (v < 0)
             retl = "neg(" + algebra_tools_::dtos(-v) + ")";
         else
@@ -168,7 +171,7 @@ std::string exprNode::simplify()
     }
     try
     {
-        double v = right->compile();
+        T v = right->compile();
         if (v < 0)
             retr = "neg(" + algebra_tools_::dtos(-v) + ")";
         else
@@ -242,4 +245,18 @@ std::string exprNode::simplify()
 std::string exprNode::nodetype()
 {
     return "expr";
+}
+
+std::vector<std::string> exprNode::getVars()
+{
+    auto ret = left->getVars();
+    auto ret2 = right->getVars();
+    ret.insert(ret.end(), ret2.begin(), ret2.end());
+    return ret;
+}
+
+exprNode::~exprNode()
+{
+    delete left;
+    delete right;
 }

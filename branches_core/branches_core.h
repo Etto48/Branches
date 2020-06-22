@@ -11,6 +11,10 @@
 #include <iostream>
 #include <cmath>
 #include <map>
+#include "DataTypes/DataTypes.h"
+
+typedef double T;
+typedef vec<T> DT;
 
 class algebraParser;
 
@@ -24,6 +28,7 @@ class exprNode;
 
 #include "algebra_tools_/algebra_tools_.h"
 #include "algebraParser/algebraParser.h"
+#include "vectorParser/vectorParser.h"
 
 #include "algebraNode/algebraNode.h"
 #include "varNode/varNode.h"

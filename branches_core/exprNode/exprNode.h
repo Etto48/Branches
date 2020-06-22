@@ -12,16 +12,22 @@ class exprNode : public algebraNode
 private:
 protected:
     std::string op;
+    algebraNode *left;
+    algebraNode *right;
 public:
     explicit exprNode(std::string expr);
 
-    double compile(std::map<std::string, double> &symMap) override;
+    T compile(std::map<std::string, T> &symMap) override;
 
     std::string derivative(const std::string &direction) override;
 
     std::string simplify() override;
 
     std::string nodetype() override;
+
+    std::vector<std::string> getVars() override;
+
+    ~exprNode();
 };
 
 #endif //BRANCHES_EXPRNODE_H
