@@ -27,7 +27,7 @@ int readCommand(const string &cmd)
     {
         cout << "help:\n"
                 "\twill show this message\n"
-                "store [<name>=]<function>:\n"
+                "store|st [<name>=]<function>:\n"
                 "\twill add function to the list of drawn functions\n"
                 "\tunder the label <name>, if no \"=\"is found\n"
                 "\tthe name will be the function itself\n"
@@ -38,7 +38,7 @@ int readCommand(const string &cmd)
                 "list|ls:\n"
                 "\twill display all the current labels and functions in the list\n"
                 "\tin the format <name>=<function>\n"
-                "storeVal [<name>=]<expression>:\n"
+                "storeVal|stv [<name>=]<expression>:\n"
                 "\twill add a CONSTANT expression to the list of values\n"
                 "\tunder the label <name>\n"
                 "removeVal|rmv <name>|stored:\n"
@@ -179,7 +179,7 @@ int readCommand(const string &cmd)
                 drawAxis = true;
         }*/
         return 0;
-    } else if (cmd == "store")
+    } else if (cmd == "store" || cmd == "st")
     {
         string fun;
         cin >> fun;
@@ -207,7 +207,7 @@ int readCommand(const string &cmd)
                 cout << val << endl;
         }
         return 0;
-    } else if (cmd == "storeVal")
+    } else if (cmd == "storeVal" || cmd == "stv")
     {
         string sym;
         cin >> sym;
