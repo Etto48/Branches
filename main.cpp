@@ -19,6 +19,7 @@ int readCommand(const string &cmd)
     static double curveTo = 1;
     //static bool drawText = false;
     static map<string, string> functions;
+    static map<string, double> symbols;
     if (cmd == "exit")
     {
         return 1;
@@ -30,13 +31,26 @@ int readCommand(const string &cmd)
                 "\twill add function to the list of drawn functions\n"
                 "\tunder the label <name>, if no \"=\"is found\n"
                 "\tthe name will be the function itself\n"
-                "remove|rm <name>|all:\n"
+                "remove|rm <name>|stored:\n"
                 "\tif the arg is equal to \"stored\" all the stored functions\n"
                 "\twill be removed from the list\n"
                 "\twill remove the function under the label <name>\n"
                 "list|ls:\n"
                 "\twill display all the current labels and functions in the list\n"
                 "\tin the format <name>=<function>\n"
+                "storeVal [<name>=]<expression>:\n"
+                "\twill add a CONSTANT expression to the list of values\n"
+                "\tunder the label <name>\n"
+                "removeVal|rmv <name>|stored:\n"
+                "\tif the arg is equal to \"stored\" all the stored values\n"
+                "\twill be removed from the list\n"
+                "\twill remove the value under the label <name>\n"
+                "listVal|lsv:\n"
+                "\twill display all the current labels and values in the list\n"
+                "\tin the format <name>=<value>\n"
+                "evaluate|eval <expression>\n"
+                "\twill display the value of the expression (must be constant)\n"
+                "\tafter all the values has been substituted\n"
                 "draw <function>|<name>|stored:\n"
                 "\tif the arg is equal to \"stored\" will draw all \n"
                 "\tthe functions in the list, if the arg is a function it\n"
@@ -193,6 +207,32 @@ int readCommand(const string &cmd)
                 cout << val << endl;
         }
         return 0;
+    } else if (cmd == "storeVal")
+    {
+        string sym;
+        cin >> sym;
+        string sName = sym.substr(0, sym.find('='));
+        sym.erase(0, sym.find('=') + 1);
+        algebraParser sp(sym);
+        symbols.insert({sName, sp.evaluate(symbols)});
+        return 0;
+    } else if (cmd == "removeVal" || cmd == "rmv")
+    {
+        string name;
+        cin >> name;
+        if (name == "stored")
+        {
+            symbols = {};
+        }
+        symbols.erase(name);
+        return 0;
+    } else if (cmd == "listVal" || cmd == "lsv")
+    {
+        for (auto const&[key, val] : symbols)
+        {
+            cout << key << "=" << val << endl;
+        }
+        return 0;
     } else if (cmd == "derivative" || cmd == "diff")
     {
         string args;
@@ -292,6 +332,18 @@ int readCommand(const string &cmd)
             else
                 cout << "(" << fun << ")'=" << s << endl;
         }
+        return 0;
+    } else if (cmd == "evaluate" || cmd == "eval")
+    {
+        string args;
+        cin >> args;
+        if (functions.contains(args))
+            args = functions[args];
+
+        algebraParser toEv(args);
+        cout << "=" << toEv.evaluate(symbols) << endl;
+
+
         return 0;
     } else if (cmd == "study")
     {
