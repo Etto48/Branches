@@ -209,12 +209,19 @@ int readCommand(const string &cmd)
         return 0;
     } else if (cmd == "storeVal" || cmd == "stv")
     {
-        string sym;
-        cin >> sym;
-        string sName = sym.substr(0, sym.find('='));
-        sym.erase(0, sym.find('=') + 1);
-        algebraParser sp(sym);
-        symbols.insert({sName, sp.evaluate(symbols)});
+        try
+        {
+            string sym;
+            cin >> sym;
+            string sName = sym.substr(0, sym.find('='));
+            sym.erase(0, sym.find('=') + 1);
+            algebraParser sp(sym);
+            symbols.insert({sName, sp.evaluate(symbols)});
+        } catch (algebra_tools_::except &e)
+        {
+            cout << e.what() << endl;
+            return -1;
+        }
         return 0;
     } else if (cmd == "removeVal" || cmd == "rmv")
     {
@@ -335,14 +342,21 @@ int readCommand(const string &cmd)
         return 0;
     } else if (cmd == "evaluate" || cmd == "eval")
     {
-        string args;
-        cin >> args;
-        if (functions.contains(args))
-            args = functions[args];
+        try
+        {
+            string args;
+            cin >> args;
+            if (functions.contains(args))
+                args = functions[args];
 
-        algebraParser toEv(args);
-        cout << "=" << toEv.evaluate(symbols) << endl;
-
+            algebraParser toEv(args);
+            auto tmp = toEv.evaluate(symbols);
+            cout << args << "=" << tmp << endl;
+        } catch (algebra_tools_::except &e)
+        {
+            cout << e.what() << endl;
+            return -1;
+        }
 
         return 0;
     } else if (cmd == "study")
