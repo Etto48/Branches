@@ -20,6 +20,7 @@ using namespace Gdiplus;
 namespace b3d
 {
     std::string function;
+    const std::map<std::string, T> *symbols;
     int density;
     double zoom;
     bool drawAxis;
@@ -80,8 +81,10 @@ VOID OnPaint3d(HDC hdc)
                 auto a = d * (i - samples / 2.0) / scale;
                 auto b = d * (j - samples / 2.0) / scale;
 
-                apvsA[i][j] = PointF(intoFrame(p2d(p3d(a, b, b3d::f->evaluate({{"x", a},
-                                                                               {"y", b}})), b3d::rot), sizeX, sizeY,
+                std::map<std::string, T> M = *b3d::symbols;
+                M.merge(std::map<std::string, T>({{"x", a},
+                                                  {"y", b}}));
+                apvsA[i][j] = PointF(intoFrame(p2d(p3d(a, b, b3d::f->evaluate(M)), b3d::rot), sizeX, sizeY,
                                                scale));
                 //apvsB[i][j] = PointF(intoFrame(p2d(p3d(b, a, f.evaluate({{"x", b},
                 //                                                         {"y", a}})), b3d::rot), sizeX, sizeY, scale));
@@ -158,6 +161,7 @@ LRESULT CALLBACK WndProc3d(HWND, UINT, WPARAM, LPARAM);
 
 INT WINAPI draw3d(
         const std::string &function,
+        const std::map<std::string, T> &symbols,
         int density = 0,
         double zoom = 1,
         bool drawAxis = true,
@@ -168,6 +172,7 @@ INT WINAPI draw3d(
 {
 
     b3d::function = function;
+    b3d::symbols = new std::map(symbols);
     b3d::density = density;
     b3d::zoom = zoom;
     b3d::drawAxis = drawAxis;
@@ -228,6 +233,7 @@ INT WINAPI draw3d(
     }
 
     delete b3d::f;
+    delete b3d::symbols;
     GdiplusShutdown(gdiplusToken);
     return msg.wParam;
 }  // WinMain

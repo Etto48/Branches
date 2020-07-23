@@ -20,6 +20,7 @@ namespace bPCurve
 {
     std::vector<Color> *fCols;
     std::string function;
+    const std::map<std::string, T> *symbols;
     int fromX;
     int fromY;
     int sizeX;
@@ -97,7 +98,9 @@ VOID OnPaintCurve(HDC hdc)
         for (int i = 0; i <= bPCurve::density; i++)
         {
             //find zeroes
-            v = parser.evaluate(std::map<std::string, T>{{"t", (dx * i + bPCurve::intervalFrom)}});
+            std::map<std::string, T> M = *bPCurve::symbols;
+            M.merge(std::map<std::string, T>({{"t", (dx * i + bPCurve::intervalFrom)}}));
+            v = parser.evaluate(M);
             if ((!isnan(v[0]) && !isnan(v[1])) && (!isinf(v[0]) && !isinf(v[1])))
             {
                 /*
@@ -215,6 +218,7 @@ LRESULT CALLBACK WndProcCurve(HWND, UINT, WPARAM, LPARAM);
 
 INT WINAPI drawPCurve(
         const std::string &function,
+        const std::map<std::string, T> &symbols,
         int fromX = 0,
         int fromY = 0,
         int sizeX = 0,
@@ -231,6 +235,7 @@ INT WINAPI drawPCurve(
     bPCurve::fCols = new std::vector<Color>();
     bPCurve::fCols->reserve(1);
     bPCurve::function = function;
+    bPCurve::symbols = new std::map(symbols);
     bPCurve::fromX = fromX;
     bPCurve::fromY = fromY;
     bPCurve::sizeX = sizeX;

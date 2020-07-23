@@ -19,6 +19,7 @@ using namespace Gdiplus;
 namespace bStudy
 {
     std::string function;
+    const std::map<std::string, T> *symbols;
     int fromX;
     int fromY;
     int sizeX;
@@ -107,7 +108,9 @@ VOID OnPaintS(HDC hdc)
             for (int i = 0; i <= bStudy::density; i++)
             {
                 //find zeroes
-                newY = fs[fNum].evaluate(std::map<std::string, double>{{"x", (dx * i - deltaX) / scale}});
+                std::map<std::string, T> M = *bStudy::symbols;
+                M.merge(std::map<std::string, T>({{"x", (dx * i - deltaX) / scale}}));
+                newY = fs[fNum].evaluate(M);
                 if ((isnan(newY) || isinf(newY)) && !ne && fNum == 0)
                 {
                     lastNeFrom = (dx * i);
@@ -306,6 +309,7 @@ LRESULT CALLBACK WndProcS(HWND, UINT, WPARAM, LPARAM);
 
 INT WINAPI drawStudy(
         const std::string &function,
+        const std::map<std::string, T> &symbols,
         int fromX = 0,
         int fromY = 0,
         int sizeX = 0,
@@ -319,6 +323,7 @@ INT WINAPI drawStudy(
 )
 {
     bStudy::function = std::string(function);
+    bStudy::symbols = new std::map(symbols);
     bStudy::fromX = fromX;
     bStudy::fromY = fromY;
     bStudy::sizeX = sizeX;

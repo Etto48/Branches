@@ -20,6 +20,7 @@ namespace bDraw
 {
     std::vector<Color> *fCols;
     const std::map<std::string, std::string> *functions;
+    const std::map<std::string, T> *symbols;
     int fromX;
     int fromY;
     int sizeX;
@@ -94,7 +95,9 @@ VOID OnPaint(HDC hdc)
             for (int i = 0; i <= bDraw::density; i++)
             {
                 //find zeroes
-                newY = parsers[fNum].evaluate(std::map<std::string, double>{{"x", (dx * i - deltaX) / scale}});
+                std::map<std::string, T> M = *bDraw::symbols;
+                M.merge(std::map<std::string, T>({{"x", (dx * i - deltaX) / scale}}));
+                newY = parsers[fNum].evaluate(M);
                 if (!isnan(newY) && !isinf(newY))
                 {
                     if (newY * lastY < 0)
@@ -211,6 +214,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 INT WINAPI drawGraph(
         const std::map<std::string, std::string> &functions,
+        const std::map<std::string, T> &symbols,
         int fromX = 0,
         int fromY = 0,
         int sizeX = 0,
@@ -226,6 +230,7 @@ INT WINAPI drawGraph(
     bDraw::fCols = new std::vector<Color>();
     bDraw::fCols->reserve(functions.size());
     bDraw::functions = new std::map(functions);
+    bDraw::symbols = new std::map(symbols);
     bDraw::fromX = fromX;
     bDraw::fromY = fromY;
     bDraw::sizeX = sizeX;
@@ -288,6 +293,7 @@ INT WINAPI drawGraph(
 
     GdiplusShutdown(gdiplusToken);
     delete bDraw::functions;
+    delete bDraw::symbols;
     delete bDraw::fCols;
     return msg.wParam;
 }  // WinMain

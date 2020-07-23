@@ -366,7 +366,7 @@ int readCommand(const string &cmd)
         if (functions.contains(args))
             args = functions[args];
 
-        drawStudy(args, -1, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
+        drawStudy(args, symbols, -1, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
 
 
         return 0;
@@ -389,7 +389,7 @@ int readCommand(const string &cmd)
             toDraw = {{"f", args}};
         }
 
-        drawGraph(toDraw, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
+        drawGraph(toDraw, symbols, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
 
         return 0;
     } else if (cmd == "drawCurve")
@@ -412,7 +412,7 @@ int readCommand(const string &cmd)
             toDraw = args;
         }
 
-        drawPCurve(toDraw, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid, curveFrom, curveTo);
+        drawPCurve(toDraw, symbols, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid, curveFrom, curveTo);
 
         return 0;
     } else if (cmd == "draw3d")
@@ -427,7 +427,7 @@ int readCommand(const string &cmd)
         {
             toDraw = args;
         }
-        draw3d(toDraw, precision, zoom, drawAxis, drawGrid, rotating);
+        draw3d(toDraw, symbols, precision, zoom, drawAxis, drawGrid, rotating);
         return 0;
     } else if (cmd == "field3d")
     {
