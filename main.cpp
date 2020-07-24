@@ -3,6 +3,7 @@
 #include "graphics/winStudy.h"
 #include "graphics/win3d.h"
 #include "graphics/winPCurve.h"
+#include "functions/numericIntegration.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ int readCommand(const string &cmd)
     static bool rotating = true;
     static double curveFrom = 0;
     static double curveTo = 1;
+    static double dx = 0.0001;
     //static bool drawText = false;
     static map<string, string> functions;
     static map<string, double> symbols;
@@ -51,6 +53,9 @@ int readCommand(const string &cmd)
                 "evaluate|eval <expression>\n"
                 "\twill display the value of the expression (must be constant)\n"
                 "\tafter all the values has been substituted\n"
+                "\tnumericIntegration|nIntegration|nint <function> <from> <to>:\n"
+                "\t\tevaluate an approximation for the integral of function from\n"
+                "\t\tand to the specified values\n"
                 "draw <function>|<name>|stored:\n"
                 "\tif the arg is equal to \"stored\" will draw all \n"
                 "\tthe functions in the list, if the arg is a function it\n"
@@ -107,6 +112,9 @@ int readCommand(const string &cmd)
                 "\t\tcurveTo (double):\n"
                 "\t\t\tchose the 'b' value in the [a,b] interval in which the\n"
                 "\t\t\tcurves are defined\n"
+                "\t\tdx (double):\n"
+                "\t\t\tchose the interval between slices in the nint command\n"
+                "\t\t\tthe smaller, the higher the precision\n"
                 //"\t\tdrawText (bool):(currently unavailable)\n"
                 //"\t\t\tchoose if to draw the function in the left high corner\n"
                 //"\tuse \"default\" as value to reset the value\n"
@@ -117,67 +125,81 @@ int readCommand(const string &cmd)
         return 0;
     } else if (cmd == "set")
     {
-        string args;
-        string tmp;
-        cin >> args;
-        if (args == "zoom")
+        try
         {
-            cin >> tmp;
-            if (tmp == "default")
-                zoom = 1;
-            else
-                zoom = stod(tmp);
-        } else if (args == "precision")
+            string args;
+            string tmp;
+            cin >> args;
+            if (args == "zoom")
+            {
+                cin >> tmp;
+                if (tmp == "default")
+                    zoom = 1;
+                else
+                    zoom = algebraParser(tmp).evaluate(symbols);
+            } else if (args == "precision")
+            {
+                cin >> tmp;
+                if (tmp == "default")
+                    precision = 0;
+                else
+                    precision = stoi(tmp);
+            } else if (args == "curveFrom")
+            {
+                cin >> tmp;
+                if (tmp == "default")
+                    curveFrom = 0;
+                else
+                    curveFrom = algebraParser(tmp).evaluate(symbols);
+            } else if (args == "curveTo")
+            {
+                cin >> tmp;
+                if (tmp == "default")
+                    curveTo = 1;
+                else
+                    curveTo = algebraParser(tmp).evaluate(symbols);
+            } else if (args == "dx")
+            {
+                cin >> tmp;
+                if (tmp == "default")
+                    dx = 0.0001;
+                else
+                    dx = algebraParser(tmp).evaluate(symbols);
+            } else if (args == "drawGrid")
+            {
+                cin >> tmp;
+                if (tmp == "true" || tmp == "default")
+                    drawGrid = true;
+                else if (tmp == "false")
+                    drawGrid = false;
+            } else if (args == "drawAxis")
+            {
+                cin >> tmp;
+                if (tmp == "true" || tmp == "default")
+                    drawAxis = true;
+                else if (tmp == "false")
+                    drawAxis = false;
+            } else if (args == "rotating")
+            {
+                cin >> tmp;
+                if (tmp == "true" || tmp == "default")
+                    rotating = true;
+                else if (tmp == "false")
+                    rotating = false;
+            }
+            /*else if (args == "drawText")
+            {
+                cin >> tmp;
+                if (tmp == "false" || tmp == "default")
+                    drawText = false;
+                else if (tmp == "true")
+                    drawAxis = true;
+            }*/
+        } catch (algebra_tools_::except &e)
         {
-            cin >> tmp;
-            if (tmp == "default")
-                precision = 0;
-            else
-                precision = stoi(tmp);
-        } else if (args == "curveFrom")
-        {
-            cin >> tmp;
-            if (tmp == "default")
-                curveFrom = 0;
-            else
-                curveFrom = stod(tmp);
-        } else if (args == "curveTo")
-        {
-            cin >> tmp;
-            if (tmp == "default")
-                curveTo = 1;
-            else
-                curveTo = stod(tmp);
-        } else if (args == "drawGrid")
-        {
-            cin >> tmp;
-            if (tmp == "true" || tmp == "default")
-                drawGrid = true;
-            else if (tmp == "false")
-                drawGrid = false;
-        } else if (args == "drawAxis")
-        {
-            cin >> tmp;
-            if (tmp == "true" || tmp == "default")
-                drawAxis = true;
-            else if (tmp == "false")
-                drawAxis = false;
-        } else if (args == "rotating")
-        {
-            cin >> tmp;
-            if (tmp == "true" || tmp == "default")
-                rotating = true;
-            else if (tmp == "false")
-                rotating = false;
+            cout << e.what() << endl;
+            return -1;
         }
-        /*else if (args == "drawText")
-        {
-            cin >> tmp;
-            if (tmp == "false" || tmp == "default")
-                drawText = false;
-            else if (tmp == "true")
-                drawAxis = true;
-        }*/
         return 0;
     } else if (cmd == "store" || cmd == "st")
     {
@@ -392,7 +414,7 @@ int readCommand(const string &cmd)
         drawGraph(toDraw, symbols, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid);
 
         return 0;
-    } else if (cmd == "drawCurve")
+    } else if (cmd == "drawCurve" || cmd == "drawc")
     {
         string args;
         cin >> args;
@@ -444,6 +466,36 @@ int readCommand(const string &cmd)
         ///wip
         ///field3d(toDraw, precision, zoom, drawAxis, drawGrid, rotating);
         return 0;
+    } else if (cmd == "numericIntegration" || cmd == "nIntegration" || cmd == "nint")
+    {
+        try
+        {
+            string args;
+            cin >> args;
+            string toInt;
+            if (functions.contains(args))
+            {
+                toInt = functions[args];
+            } else
+            {
+                toInt = args;
+            }
+            string from;
+            cin >> from;
+            double dFrom = algebraParser(from).evaluate(symbols);
+            string to;
+            cin >> to;
+            double dTo = algebraParser(to).evaluate(symbols);
+            cout << "Approximating the value of Integral from " << from << " to " << to << " of " << toInt << " using "
+                 << (dTo - dFrom) / dx << " slices..." << endl;
+            auto sum = numericIntegration(toInt, dFrom, dTo, dx, symbols);
+            cout << "I(" << toInt << ")=" << sum << endl;
+        } catch (algebra_tools_::except &e)
+        {
+            cout << e.what() << endl;
+            return -1;
+        }
+        return 0;
     }
     return -1;
 }
@@ -461,6 +513,10 @@ int main()
         cout << (ret == 0 ? ">>" : "x>");
         cin >> operation;
         ret = readCommand(operation);
+        if (ret == -1)
+        {
+            cin.ignore(100, '\n');
+        }
     }
 
     return 0;
