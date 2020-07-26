@@ -57,7 +57,7 @@ VOID OnPaintCurve(HDC hdc)
         }
 
 
-        if (bPCurve::density == 0)bPCurve::density = bPCurve::sizeX;
+        if (bPCurve::density == 0)bPCurve::density = (bPCurve::sizeY + bPCurve::sizeX) / 2;
 
 
         double deltaY = bPCurve::sizeY / 2.0;

@@ -3,8 +3,9 @@
 #include "graphics/winStudy.h"
 #include "graphics/win3d.h"
 #include "graphics/winPCurve.h"
-#include "functions/numericIntegration.h"
+#include "graphics/winPC3d.h"
 #include "graphics/colors.h"
+#include "functions/numericIntegration.h"
 
 using namespace std;
 
@@ -44,33 +45,43 @@ int readCommand(const string &cmd)
                 + colorize("storeVal|stv [<name>=]<expression>:", "Cyan") + "\n"
                                                                             "\twill add a CONSTANT expression to the list of values\n"
                                                                             "\tunder the label <name>\n"
-                + colorize("removeVal|rmv <name>|stored:", "Cyan") + "\n"
+                                                                            + colorize("removeVal|rmv <name>|stored:", "Cyan") + "\n"
                                                                      "\tif the arg is equal to \"stored\" all the stored values\n"
                                                                      "\twill be removed from the list\n"
                                                                      "\twill remove the value under the label <name>\n"
-                + colorize("listVal|lsv:", "Cyan") + "\n"
+                                                                            + colorize("listVal|lsv:", "Cyan") + "\n"
                                                      "\twill display all the current labels and values in the list\n"
                                                      "\tin the format <name>=<value>\n"
-                + colorize("evaluate|eval <expression>", "Cyan") + "\n"
+                                                                            + colorize("evaluate|eval <expression>", "Cyan") + "\n"
                                                                    "\twill display the value of the expression (must be constant)\n"
-                                                                   "\tafter all the values has been substituted\n"
-                                                                   "\tnumericIntegration|nIntegration|nint <function> <from> <to>:\n"
-                                                                   "\t\tevaluate an approximation for the integral of function from\n"
-                                                                   "\t\tand to the specified values\n"
-                + colorize("draw <function>|<name>|stored:", "Cyan") + "\n"
-                                                                       "\tif the arg is equal to \"stored\" will draw all \n"
-                                                                       "\tthe functions in the list, if the arg is a function it\n"
-                                                                       "\twill draw the function defined in the args\n"
-                                                                       "\tyou can use the name of a stored function to draw it\n"
-                                                                       "\t(function must be R->R, with x as the independent variable)\n"
-                + colorize("drawCurve <function>|<name>|(WIP:stored):", "Cyan") + "\n"
-                                                                                  "\tif the arg is equal to \"stored\" will draw all \n"
-                                                                                  "\tthe functions in the list, if the arg is a function it\n"
-                                                                                  "\twill draw the function defined in the args\n"
-                                                                                  "\tyou can use the name of a stored function to draw it\n"
-                                                                                  "\t(function must be R->R^2, with t as the independent variable,\n"
-                                                                                  "\tthe format for a vector in R^2 is {x(t),y(t)})\n"
-                + colorize("draw3d <function>|<name>:", "Cyan") + "\n"
+                                                                                                                               "\tafter all the values has been substituted\n"
+                                                                                                                               "\tnumericIntegration|nIntegration|nint <function> <from> <to>:\n"
+                                                                                                                               "\t\tevaluate an approximation for the integral of function from\n"
+                                                                                                                               "\t\tand to the specified values\n"
+                                                                            + colorize("draw <function>|<name>|stored:",
+                                                                                       "Cyan") + "\n"
+                                                                                                 "\tif the arg is equal to \"stored\" will draw all \n"
+                                                                                                 "\tthe functions in the list, if the arg is a function it\n"
+                                                                                                 "\twill draw the function defined in the args\n"
+                                                                                                 "\tyou can use the name of a stored function to draw it\n"
+                                                                                                 "\t(function must be R->R, with x as the independent variable)\n"
+                                                                            + colorize(
+                "drawCurve|drawc <function>|<name>|(WIP:stored):", "Cyan") + "\n"
+                                                                             "\tif the arg is equal to \"stored\" will draw all \n"
+                                                                             "\tthe functions in the list, if the arg is a function it\n"
+                                                                             "\twill draw the function defined in the args\n"
+                                                                             "\tyou can use the name of a stored function to draw it\n"
+                                                                             "\t(function must be R->R^2, with t as the independent variable,\n"
+                                                                             "\tthe format for a vector in R^2 is {x(t),y(t)})\n"
+                                                                            + colorize(
+                "drawCurve3d|drawc3d <function>|<name>|(WIP:stored):", "Cyan") + "\n"
+                                                                                 "\tif the arg is equal to \"stored\" will draw all \n"
+                                                                                 "\tthe functions in the list, if the arg is a function it\n"
+                                                                                 "\twill draw the function defined in the args\n"
+                                                                                 "\tyou can use the name of a stored function to draw it\n"
+                                                                                 "\t(function must be R->R^3, with t as the independent variable,\n"
+                                                                                 "\tthe format for a vector in R^2 is {x(t),y(t),z(t)})\n"
+                                                                            + colorize("draw3d <function>|<name>:", "Cyan") + "\n"
                                                                   "\tsame as draw command but the domain is assumed to be R^2,\n"
                                                                   "\tso a 3d graph is shown (rotating by default, see set rotating)\n"
                 + colorize("study <function>|<name>:", "Cyan") + "\n"
@@ -435,6 +446,29 @@ int readCommand(const string &cmd)
         drawPCurve(toDraw, symbols, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid, curveFrom, curveTo);
 
         return 0;
+    } else if (cmd == "drawCurve3d" || cmd == "drawc3d")
+    {
+        string args;
+        cin >> args;
+        string toDraw;
+        /*if (args == "stored")
+        {
+            if (functions.empty())
+                return -1;
+            else
+                toDraw = functions;
+        }*/
+        if (functions.contains(args))
+        {
+            toDraw = functions[args];
+        } else
+        {
+            toDraw = args;
+        }
+
+        drawPC3d(toDraw, symbols, precision, zoom, drawAxis, drawGrid, rotating, curveFrom, curveTo);
+
+        return 0;
     } else if (cmd == "draw3d")
     {
         string args;
@@ -485,7 +519,7 @@ int readCommand(const string &cmd)
             cin >> to;
             double dTo = algebraParser(to).evaluate(symbols);
             cout << "Approximating the value of Integral from " << from << " to " << to << " of " << toInt << " using "
-                 << (dTo - dFrom) / dx << " slices..." << endl;
+                    << (dTo - dFrom) / dx << " slices..." << endl;
             auto sum = numericIntegration(toInt, dFrom, dTo, dx, symbols);
             cout << "I(" << toInt << ")=" << sum << endl;
         } catch (...)
