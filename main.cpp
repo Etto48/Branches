@@ -31,7 +31,7 @@ int readCommand(const string &cmd)
     {
         cout << colorize("help:", "Cyan") + "\n"
                 "\twill show this message\n"
-                + colorize("store|st [<name>=]<function>:", "Cyan") + "\n"
+                + colorize("store|st [<name>]<function>:", "Cyan") + "\n"
                 "\twill add function to the list of drawn functions\n"
                 "\tunder the label <name>, if no \"=\"is found\n"
                 "\tthe name will be the function itself\n"
@@ -42,7 +42,7 @@ int readCommand(const string &cmd)
                 + colorize("list|ls:", "Cyan") + "\n"
                 "\twill display all the current labels and functions in the list\n"
                 "\tin the format <name>=<function>\n"
-                + colorize("storeVal|stv [<name>=]<expression>:", "Cyan") + "\n"
+                + colorize("storeVal|stv [<name>]<expression>:", "Cyan") + "\n"
                 "\twill add a CONSTANT expression to the list of values\n"
                 "\tunder the label <name>\n"
                 + colorize("removeVal|rmv <name>|stored:", "Cyan") + "\n"
