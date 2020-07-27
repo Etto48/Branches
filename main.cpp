@@ -4,6 +4,7 @@
 #include "graphics/win3d.h"
 #include "graphics/winPCurve.h"
 #include "graphics/winPC3d.h"
+#include "graphics/winPS3d.h"
 #include "graphics/colors.h"
 #include "functions/numericIntegration.h"
 
@@ -18,8 +19,13 @@ int readCommand(const string &cmd)
     static bool drawGrid = true;
     static bool drawAxis = true;
     static bool rotating = true;
-    static double curveFrom = 0;
-    static double curveTo = 1;
+    static double tFrom = 0;
+    static double tTo = 1;
+    static double uFrom = 0;
+    static double uTo = 1;
+    static double vFrom = 0;
+    static double vTo = 1;
+
     static double dx = 0.0001;
     //static bool drawText = false;
     static map<string, string> functions;
@@ -81,6 +87,9 @@ int readCommand(const string &cmd)
                 + colorize("draw3d <function>|<name>:", "Cyan") + "\n"
                 "\tsame as draw command but the domain is assumed to be R^2,\n"
                 "\tso a 3d graph is shown (rotating by default, see set rotating)\n"
+                + colorize("drawSurface|draws <function>|<name>:", "Cyan") + "\n"
+                "\trenders a 3d image of a parametric curve (r^2->r^3) using u and v as\n"
+                "\tparameters\n"
                 + colorize("study <function>|<name>:", "Cyan") + "\n"
                 "\tdraws the study of the required function or stored function\n"
                 "\thighlights maxima, minima and inflections, shows a different background\n"
@@ -115,12 +124,24 @@ int readCommand(const string &cmd)
                 "\t\t\tchoose if to draw the x and y axis\n"
                 "\t\trotating (bool):\n"
                 "\t\t\tchoose if the draw3d result is rotating\n"
-                "\t\tcurveFrom (double):\n"
-                "\t\t\tchose the 'a' value in the [a,b] interval in which the\n"
-                "\t\t\tcurves are defined\n"
-                "\t\tcurveTo (double):\n"
+                "\t\ttFrom (double):\n"
+                "\t\t\tchose the a value in the [a,b] interval in which the\n"
+                "\t\t\tt variable is defined\n"
+                "\t\ttTo (double):\n"
                 "\t\t\tchose the 'b' value in the [a,b] interval in which the\n"
-                "\t\t\tcurves are defined\n"
+                "\t\t\tt variable is defined\n"
+                "\t\tuFrom (double):\n"
+                "\t\t\tchose the a value in the [a,b] interval in which the\n"
+                "\t\t\tu variable is defined\n"
+                "\t\tuTo (double):\n"
+                "\t\t\tchose the 'b' value in the [a,b] interval in which the\n"
+                "\t\t\tu variable is defined\n"
+                "\t\tvFrom (double):\n"
+                "\t\t\tchose the a value in the [a,b] interval in which the\n"
+                "\t\t\tv variable is defined\n"
+                "\t\tvTo (double):\n"
+                "\t\t\tchose the 'b' value in the [a,b] interval in which the\n"
+                "\t\t\tv variable is defined\n"
                 "\t\tdx (double):\n"
                 "\t\t\tchose the interval between slices in the nint command\n"
                 "\t\t\tthe smaller, the higher the precision\n"
@@ -153,20 +174,48 @@ int readCommand(const string &cmd)
                     precision = 0;
                 else
                     precision = stoi(tmp);
-            } else if (args == "curveFrom")
+            } else if (args == "tFrom")
             {
                 cin >> tmp;
                 if (tmp == "default")
-                    curveFrom = 0;
+                    tFrom = 0;
                 else
-                    curveFrom = algebraParser(tmp).evaluate(symbols);
-            } else if (args == "curveTo")
+                    tFrom = algebraParser(tmp).evaluate(symbols);
+            } else if (args == "tTo")
             {
                 cin >> tmp;
                 if (tmp == "default")
-                    curveTo = 1;
+                    tTo = 1;
                 else
-                    curveTo = algebraParser(tmp).evaluate(symbols);
+                    tTo = algebraParser(tmp).evaluate(symbols);
+            } else if (args == "uFrom")
+            {
+                cin >> tmp;
+                if (tmp == "default")
+                    uFrom = 0;
+                else
+                    uFrom = algebraParser(tmp).evaluate(symbols);
+            } else if (args == "uTo")
+            {
+                cin >> tmp;
+                if (tmp == "default")
+                    uTo = 1;
+                else
+                    uTo = algebraParser(tmp).evaluate(symbols);
+            } else if (args == "vFrom")
+            {
+                cin >> tmp;
+                if (tmp == "default")
+                    vFrom = 0;
+                else
+                    vFrom = algebraParser(tmp).evaluate(symbols);
+            } else if (args == "vTo")
+            {
+                cin >> tmp;
+                if (tmp == "default")
+                    vTo = 1;
+                else
+                    vTo = algebraParser(tmp).evaluate(symbols);
             } else if (args == "dx")
             {
                 cin >> tmp;
@@ -440,7 +489,7 @@ int readCommand(const string &cmd)
             toDraw = args;
         }
 
-        drawPCurve(toDraw, symbols, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid, curveFrom, curveTo);
+        drawPCurve(toDraw, symbols, 0, 0, 0, 0, precision, zoom, drawAxis, drawGrid, tFrom, tTo);
 
         return 0;
     } else if (cmd == "drawCurve3d" || cmd == "drawc3d")
@@ -463,7 +512,7 @@ int readCommand(const string &cmd)
             toDraw = args;
         }
 
-        drawPC3d(toDraw, symbols, precision, zoom, drawAxis, drawGrid, rotating, curveFrom, curveTo);
+        drawPC3d(toDraw, symbols, precision, zoom, drawAxis, drawGrid, rotating, tFrom, tTo);
 
         return 0;
     } else if (cmd == "draw3d")
@@ -479,6 +528,20 @@ int readCommand(const string &cmd)
             toDraw = args;
         }
         draw3d(toDraw, symbols, precision, zoom, drawAxis, drawGrid, rotating);
+        return 0;
+    } else if (cmd == "drawSurface" || cmd=="draws")
+    {
+        string args;
+        cin >> args;
+        string toDraw;
+        if (functions.contains(args))
+        {
+            toDraw = functions[args];
+        } else
+        {
+            toDraw = args;
+        }
+        drawPS3d(toDraw, symbols, precision, zoom, drawAxis, drawGrid, rotating,uFrom,uTo,vFrom,vTo);
         return 0;
     } else if (cmd == "field3d")
     {
