@@ -25,6 +25,7 @@ int readCommand(const string &cmd)
     static double uTo = 1;
     static double vFrom = 0;
     static double vTo = 1;
+    static bool autoEval = true;
 
     static double dx = 0.0001;
     //static bool drawText = false;
@@ -145,11 +146,16 @@ int readCommand(const string &cmd)
                 "\t\tdx (double):\n"
                 "\t\t\tchose the interval between slices in the nint command\n"
                 "\t\t\tthe smaller, the higher the precision\n"
+                "\t\tautoEval (bool):\n"
+                "\t\t\tchose to evaluate the command string as an expression\n"
+                "\t\t\tif it is not recognized\n"
                 //"\t\tdrawText (bool):(currently unavailable)\n"
                 //"\t\t\tchoose if to draw the function in the left high corner\n"
                 //"\tuse \"default\" as value to reset the value\n"
                 + colorize("exit:", "Cyan") + "\n"
                 "\twill close the program\n"
+                + colorize("If the command is not recognized and autoEval is true\n"
+                           "the command string will be evaluated","Dark Gray")+"\n"
                 "\n"
                 "credits to Ettore Ricci\n";
         return 0;
@@ -244,6 +250,13 @@ int readCommand(const string &cmd)
                     rotating = true;
                 else if (tmp == "false")
                     rotating = false;
+            } else if (args == "autoEval")
+            {
+                cin >> tmp;
+                if (tmp == "true" || tmp == "default")
+                    autoEval = true;
+                else if (tmp == "false")
+                    autoEval = false;
             }
             /*else if (args == "drawText")
             {
@@ -418,24 +431,6 @@ int readCommand(const string &cmd)
                 cout << "(" << fun << ")'=" << s << endl;
         }
         return 0;
-    } else if (cmd == "evaluate" || cmd == "eval")
-    {
-        try
-        {
-            string args;
-            cin >> args;
-            if (functions.contains(args))
-                args = functions[args];
-
-            algebraParser toEv(args);
-            auto tmp = toEv.evaluate(symbols);
-            cout << args << "=" << tmp << endl;
-        } catch (...)
-        {
-            throw;
-        }
-
-        return 0;
     } else if (cmd == "study")
     {
         string args;
@@ -587,8 +582,42 @@ int readCommand(const string &cmd)
             throw;
         }
         return 0;
+    } else if (cmd == "evaluate" || cmd == "eval")
+    {
+        try
+        {
+            string args;
+            cin >> args;
+            if (functions.contains(args))
+                args = functions[args];
+
+            algebraParser toEv(args);
+            auto tmp = toEv.evaluate(symbols);
+            cout << args << "=" << tmp << endl;
+        } catch (...)
+        {
+            throw;
+        }
+
+        return 0;
     }
-    throw algebra_tools_::except("Command not available");
+    else if(autoEval){
+        try
+        {
+            string toEvS=cmd;
+            if (functions.contains(toEvS))
+                toEvS = functions[toEvS];
+
+            algebraParser toEv(toEvS);
+            auto tmp = toEv.evaluate(symbols);
+            cout << toEvS << "=" << tmp << endl;
+        } catch (...)
+        {
+            throw;
+        }
+        return 0;
+    }
+    throw algebra_tools_::except("Command '"+cmd+"' not recognized");
 }
 
 int main(int argc, char **argv)
