@@ -34,6 +34,7 @@ exprNode::exprNode(string expr)
                 //cout<<"found operator "<<c<<" in "<<expr<<endl;
                 fmeo = j;
 
+                bool isError=false;
                 if(fmeo>0)///check if detected a false positive
                 {
                     auto tmp = algebraParser::ops();
@@ -50,14 +51,16 @@ exprNode::exprNode(string expr)
                     {
                         if (expr[fmeo - 1] == mp[0])
                         {
-                            fmeo--;
+                            isError=true;
                             break;
                         }
                     }
                 }
-
-                found = true;
-                break;
+                if(!isError)
+                {
+                    found = true;
+                    break;
+                }
             }
         }
         if (found)
