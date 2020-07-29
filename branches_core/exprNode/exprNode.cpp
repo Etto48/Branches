@@ -33,6 +33,29 @@ exprNode::exprNode(string expr)
             {
                 //cout<<"found operator "<<c<<" in "<<expr<<endl;
                 fmeo = j;
+
+                if(fmeo>0)///check if detected a false positive
+                {
+                    auto tmp = algebraParser::ops();
+                    unsigned k = 0;
+                    for (; k < tmp.size(); k++)
+                        if (tmp[k] == pop)
+                            break;
+                    if (k >= tmp.size() - 1)
+                        break;
+                    vector<std::string>::const_iterator first = tmp.begin() + k;
+                    vector<std::string>::const_iterator last = tmp.end();
+                    std::vector<std::string> morePriority(first, last);
+                    for (const auto &mp:morePriority)
+                    {
+                        if (expr[fmeo - 1] == mp[0])
+                        {
+                            fmeo--;
+                            break;
+                        }
+                    }
+                }
+
                 found = true;
                 break;
             }
@@ -41,8 +64,7 @@ exprNode::exprNode(string expr)
             break;
     }
     if (fmeo <= 0 || fmeo >= expr.length() - 1)
-        throw algebra_tools_::except(
-                "exprNode: Invalid Operator Location");
+        throw algebra_tools_::except("exprNode: Invalid Operator Location at "+to_string(fmeo)+" in "+expr);
     string sleft, sright;
 
 

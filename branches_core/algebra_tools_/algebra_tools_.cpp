@@ -113,6 +113,36 @@ bool algebra_tools_::hasOperator(const string &expr)
     return hasIt;
 }
 
+bool algebra_tools_::isPrefixed(const std::string &expr)
+{
+    auto tmp=algebraParser::prefixes();
+    return std::any_of(tmp.begin(),tmp.end(),[expr](char p){return p==expr[0];});
+}
+
+bool algebra_tools_::noOtherSign(const std::string &expr)
+{
+    int level=0;
+    std::string tmp;
+    tmp=expr;
+    while(isPrefixed(tmp))
+        tmp=tmp.substr(1);
+    for(const auto& c:tmp)
+    {
+        if(c=='(')
+            level++;
+        else if(c==')')
+            level--;
+        if(level<0)
+            throw algebra_tools_::except("Wrong Order Of Braces");
+        for(const auto& p:algebraParser::prefixes())
+        {
+            if (level == 0 && c==p)
+                return false;
+        }
+    }
+    return true;
+}
+
 bool algebra_tools_::goodBraces(const std::string &content)
 {
     unsigned openBr = 0, closedBr = 0, depth = 0;
@@ -136,6 +166,7 @@ bool algebra_tools_::goodBraces(const std::string &content)
     return true;
 }
 
+
 std::string algebra_tools_::dtos(const double &d)
 {
     if (d == int(d))
@@ -152,12 +183,15 @@ algebraNode *algebra_tools_::newAdequateNode(std::string content)
     algebra_tools_::removeWrappingBraces(content);
     bool contentIsFunction = algebra_tools_::isFunction(content);
     bool contentHasOperator = algebra_tools_::hasOperator(content);
-
+    bool contentIsPrefixed = algebra_tools_::isPrefixed(content);
+    bool noOtherSignOnLevel = algebra_tools_::noOtherSign(content);
 
     if (contentIsFunction)
         return new funcNode(content);
     else if (!contentHasOperator)
         return new varNode(content);
+    else if(contentIsPrefixed&&noOtherSignOnLevel)
+        return new prefixNode(content);
     else
         return new exprNode(content);
 

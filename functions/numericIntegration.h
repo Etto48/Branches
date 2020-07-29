@@ -11,7 +11,12 @@ T numericIntegration(std::string &function, T from, T to, T dx, std::map<std::st
 {
     algebraParser f(function);
     bool neg = from > to;
-    if (neg)std::swap(from, to);
+    if (neg)
+    {
+        T tmp=from;
+        from=to;
+        to=tmp;
+    }
     int slices = int((to - from) / dx);
     T sum = 0;
     for (int i = 0; i <= slices; i++)

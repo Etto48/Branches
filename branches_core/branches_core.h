@@ -26,6 +26,8 @@ class varNode;
 
 class exprNode;
 
+class prefixNode;
+
 #include "algebra_tools_/algebra_tools_.h"
 #include "algebraParser/algebraParser.h"
 #include "vectorParser/vectorParser.h"
@@ -34,5 +36,6 @@ class exprNode;
 #include "varNode/varNode.h"
 #include "exprNode/exprNode.h"
 #include "funcNode/funcNode.h"
+#include "prefixNode/prefixNode.h"
 
 #endif //BRANCHES_BRANCHES_CORE_H

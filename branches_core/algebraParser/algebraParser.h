@@ -35,6 +35,10 @@ public:
                 "tanh", "acosh", "asinh", "atanh", "cos", "sin",
                 "tan", "acos", "asin", "atan", "sqrt", "cbrt", "abs", "neg"};
     }//functions
+    static std::vector<char> prefixes()
+    {
+        return {'+','-'};
+    }
     static std::map<std::string, T> defaultSymMap()
     {
         return {{"e",  exp(1)},

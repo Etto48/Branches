@@ -19,6 +19,10 @@ namespace algebra_tools_
 
     bool goodBraces(const std::string &content);
 
+    bool isPrefixed(const std::string &expr);
+
+    bool noOtherSign(const std::string &expr);
+
     algebraNode *newAdequateNode(std::string content);
 
     bool strEqD(const std::string &expr, const double &d);
